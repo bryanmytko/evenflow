@@ -1,17 +1,9 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 
-const BASE_URL = process.env.BASE_URL;
-
-const App = () => {
-  const [post, setPost] = React.useState(null);
-
-  React.useEffect(async () => {
-    const res = await axios.get(`${BASE_URL}/api/node`);
-    setPost(res.data);
-  }, []);
-  return <h1>Hello Universe {post}</h1>;
-};
+import App from './App';
+import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<App />, document.getElementById('app'));
