@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import AuthService from '../services/auth.service';
 
 const Login = () => {
-  return <form>
-    <label>Email:</label><input name="email" />
-    <label>Password:</label><input name="password" />
-    <input type="submit" text="Login" />
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await AuthService.login(email, password);
+  };
+
+  return <form onSubmit={handleSubmit}>
+    <label>Email:</label><input type="text" value={email}
+      onChange={e => setEmail(e.target.value)} />
+    <label>Password:</label><input type="password" value={password}
+      onChange={e => setPassword(e.target.value)} />
+    <input type="submit" value="Login" />
   </form>
 };
 
