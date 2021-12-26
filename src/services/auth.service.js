@@ -12,9 +12,7 @@ class AuthService {
       }
     );
 
-    localStorage.setItem('user', JSON.stringify(response.token));
-
-    console.log('Response token:', response.token);
+    localStorage.setItem('token', JSON.stringify(response.data.token));
   }
 }
 
