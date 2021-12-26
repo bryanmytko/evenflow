@@ -1,23 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import Login from './components/login.component';
+import Nodes from './components/nodes.component';
+import UserService from './services/user.service';
 
 const BASE_URL = process.env.BASE_URL;
 
 const App = () => {
-  const [post, setPost] = useState(null);
+  const [nodes, setNodes] = useState('');
 
-  React.useEffect(async () => {
+  useEffect(async () => {
     try {
-      // const res = await axios.get(`${BASE_URL}/api/node`);
-      // setPost(res.data);
+      UserService.getNodes().then((response) => {
+        setNodes(response.data);
+      });
     } catch (error) {
-      // console.log('Error:', error);
+      setNodes(null);
     }
   }, []);
 
-  return <Login />
+  if(nodes) {
+    return <Nodes nodes={nodes} />
+  } else {
+    return <Login />
+  }
 };
 
 export default App;
