@@ -4,6 +4,10 @@ import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+// import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>,
+  document.getElementById('app'));
