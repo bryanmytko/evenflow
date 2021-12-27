@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import App from '../App'
 
 import AuthService from '../services/auth.service';
 
@@ -9,6 +10,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await AuthService.login(email, password);
+    window.location.reload();
   };
 
   return <form onSubmit={handleSubmit}>
