@@ -3,6 +3,11 @@ import axios from 'axios';
 const BASE_URL = process.env.BASE_URL;
 
 class AuthService {
+  currentUser() {
+    const token = localStorage.getItem('token');
+    return token ? true : false;
+  }
+
   async login(email, password) {
     const response = await axios.post(
       `${BASE_URL}/api/auth/login`,
@@ -13,6 +18,13 @@ class AuthService {
     );
 
     localStorage.setItem('token', JSON.stringify(response.data.token));
+    window.location.reload();
+  }
+
+  logout() {
+    console.log('logging out')
+    localStorage.removeItem('token');
+    window.location.reload();
   }
 }
 
