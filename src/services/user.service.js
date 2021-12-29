@@ -11,6 +11,10 @@ class UserService {
   getNode(id) {
     return axios.get(`${BASE_URL}/api/node/${id}`, { headers: authHeader() });
   }
+
+  getNodeChildren(id) {
+    return axios.get(`${BASE_URL}/api/node/children/${id}`, { headers: authHeader() });
+  }
 }
 
 export default new UserService();
