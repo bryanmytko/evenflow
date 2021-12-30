@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import Login from './components/login.component';
 import Nodes from './components/nodes.component';
+import Footer from './components/layout/footer.component';
+
 import UserService from './services/user.service';
 import AuthService from './services/auth.service';
 
@@ -19,7 +21,10 @@ const App = () => {
   if(nodes) {
     return <Nodes nodes={nodes} />
   } else {
-    return <Login />
+    return <>
+        <Login />
+        <Footer />
+      </>
   }
 };
 
