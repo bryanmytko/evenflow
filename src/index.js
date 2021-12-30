@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 
 import App from './App';
+import './style.css';
 // import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(

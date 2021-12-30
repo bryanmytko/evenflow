@@ -1,0 +1,143 @@
+body, html {
+  font-family: "Noto sans Display", "Helvetica", "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: skyblue;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+h3 {
+  margin: 0 0 1.7rem 0;
+  font-weight: 600;
+  font-size: 1.7rem;
+}
+
+h4 {
+  margin: 0 0 1em 0;
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+strong {
+  font-weight: 600;
+}
+
+.card-table td {
+  padding: 1.5em 0 0 0;
+}
+
+.page-footer {
+  background: #00BCD2;
+  font-size: 0.8em;
+  margin: 0;
+  padding: 1em  0;
+}
+
+.no-margin-bottom { margin-bottom: 0px !important }
+
+.container.main-container {
+  min-height: 100vh;
+  background: skyblue;
+}
+
+.public-container {
+  min-height: 100vh;
+  margin-bottom: 4em;
+}
+
+a {
+  color: #000;
+}
+
+.devise-shared-links a {
+  font-size: 12.5px;
+}
+
+label {
+  color: #000;
+}
+
+.logo {
+  display: block;
+  margin: 1em 0;
+  background: image-url('/public/logo.png') 0 0 no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 100%;
+  height: 10em;
+}
+
+.logo.small {
+  height: 5em;
+}
+
+.logo.logged-in {
+  margin-top: 0;
+  height: 100px;
+}
+
+.btn {
+  background: #740c94;
+}
+
+table .btn {
+  text-transform: lowercase;
+  margin: 4px 0;
+}
+
+textarea {
+  height: 20rem;
+}
+
+.navbar-text {
+  color: #fff;
+}
+
+textarea,
+input[type=text],
+input[type=email],
+input[type=password] {
+  font-size: 1rem;
+  background-color: #fff !important;
+  border-radius: 4px !important;
+  border-bottom: 0 !important;
+  box-sizing: border-box !important;
+  padding: 0.2rem 1rem !important;
+}
+
+textarea {
+  padding: 1em !important;
+}
+
+textarea:focus, input:focus{
+  outline: none;
+}
+
+.xs { font-size: 0.75rem !important }
+.sm { font-size: 0.875rem !important }
+.base { font-size: 1rem !important }
+.lg { font-size: 1.125rem !important }
+.xl { font-size: 1.25rem !important }
+.xl2 { font-size: 1.5rem !important }
+.xl3 { font-size: 1.875rem !important }
+.xl4 { font-size: 2.25rem !important }
+.xl5 { font-size: 3rem !important }
+.xl6 { font-size: 4rem !important }
+.fs1 { font-size: 1vw !important }
+.fs2 { font-size: 1.4vw !important }
+.fs3 { font-size: 1.6vw !important }
+.fs4 { font-size: 1.8vw !important }
+.fs5 { font-size: 2vw !important }
+.fs6 { font-size: 2.2vw !important }
+.fs7 { font-size: 2.4vw !important }
+.fs8 { font-size: 2.6vw !important }
+
