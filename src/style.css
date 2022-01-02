@@ -38,14 +38,12 @@ strong {
 .page-footer {
   background: #00BCD2;
   font-size: 0.8em;
-  margin: 0;
   padding: 1em  0;
 }
 
 .no-margin-bottom { margin-bottom: 0px !important }
 
 .container.main-container {
-  min-height: 100vh;
   background: skyblue;
 }
 
@@ -69,7 +67,7 @@ label {
 .logo {
   display: block;
   margin: 1em 0;
-  background: image-url('/public/logo.png') 0 0 no-repeat;
+  background: url('/public/logo.png') 0 0 no-repeat;
   background-size: contain;
   background-position: center;
   width: 100%;
@@ -107,9 +105,9 @@ input[type=text],
 input[type=email],
 input[type=password] {
   font-size: 1rem;
+  border: 1px solid #d5d5d5 !important;
   background-color: #fff !important;
   border-radius: 4px !important;
-  border-bottom: 0 !important;
   box-sizing: border-box !important;
   padding: 0.2rem 1rem !important;
 }
@@ -140,4 +138,3 @@ textarea:focus, input:focus{
 .fs6 { font-size: 2.2vw !important }
 .fs7 { font-size: 2.4vw !important }
 .fs8 { font-size: 2.6vw !important }
-
