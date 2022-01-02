@@ -6,6 +6,7 @@ const htmlPlugin = new HtmlWebPackPlugin({
 });
 
 module.exports = {
+  entry: './src/index.js',
   mode: 'development',
   module: {
     rules: [{
@@ -19,6 +20,9 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
       }]
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   plugins: [htmlPlugin, new Dotenv()]
 };
