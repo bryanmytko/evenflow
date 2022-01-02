@@ -9,16 +9,20 @@ class AuthService {
   }
 
   async login(email, password) {
-    const response = await axios.post(
-      `${BASE_URL}/api/auth/login`,
-      {
-        email,
-        password
-      }
-    );
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/api/auth/login`,
+        {
+          email,
+          password
+        }
+      );
 
-    localStorage.setItem('token', JSON.stringify(response.data.token));
-    window.location.reload();
+      localStorage.setItem('token', JSON.stringify(response.data.token));
+      window.location.reload();
+    } catch(err) {
+      console.log('Error:', err);
+    }
   }
 
   logout() {

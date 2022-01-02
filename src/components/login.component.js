@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import App from '../App'
+import { useNavigate } from "react-router-dom";
 
+import App from '../App'
 import AuthService from '../services/auth.service';
 
 const Login = () => {
@@ -10,7 +11,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await AuthService.login(email, password);
-    window.location.reload();
+    return navigate('/', { replace: true });
   };
 
     return <div className="container main-container">
@@ -28,7 +29,7 @@ const Login = () => {
               </div>
               <div className="actions">
                 <div className="card-action right-align">
-                 <input type="submit" value="Login" />
+                 <input type="submit" value="Login" className="btn" />
                 </div>
               </div>
             </form>

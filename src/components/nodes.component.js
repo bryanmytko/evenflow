@@ -4,12 +4,16 @@ import { Link } from "react-router-dom";
 import AuthService from '../services/auth.service';
 import UserService from '../services/user.service';
 
-const Nodes = (props) => {
-  const [nodes, setNodes] = useState(props.nodes.nodes);
+const Nodes = () => {
+  const [nodes, setNodes] = useState([]);
 
-
-  /* Extract to custom hook eventually */
-  // const prevState = useRef();
+  useEffect(async () => {
+    if(AuthService.currentUser()) {
+      UserService.getNodes().then((response) => {
+        setNodes(response.data.nodes);
+      });
+    }
+  }, []);
 
   function follow(id){
     if(AuthService.currentUser()) {
@@ -21,8 +25,8 @@ const Nodes = (props) => {
     }
   }
 
-  if(!nodes[0].parent){
-    console.log(nodes[0])
+  /* @TODO refactor this mess */
+  if(nodes.length && !nodes[0].parent){
     return <>
       <h1>Nodes</h1>
       <Link to="/logout" onClick={AuthService.logout}>Logout</Link>
