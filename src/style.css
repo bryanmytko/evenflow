@@ -5,10 +5,15 @@ body, html {
   background: skyblue;
 }
 
-body {
+div#app {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+}
+
+header {
+  background: #dd7979;
+  padding: 1em;
 }
 
 main {
