@@ -14,7 +14,7 @@ import './style.css';
 render(
   <BrowserRouter>
     <Header />
-    <main>
+    <main className="grey lighten-4">
       <App />
     </main>
     <Footer />

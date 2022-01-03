@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import AuthService from '../../services/auth.service';
 
 const Header = () => {
-  return <header>
-    <Link to="/logout" onClick={AuthService.logout}>Logout</Link>
+  return <header className="pink accent-2">
+    <div className="container right-align">
+      <Link to="/logout" onClick={AuthService.logout}>Logout</Link>
+    </div>
   </header>;
 };
 
