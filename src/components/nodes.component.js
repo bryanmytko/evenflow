@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from "react-router-dom";
+import DOMPurify from 'dompurify';
 
 import AuthService from '../services/auth.service';
 import UserService from '../services/user.service';
@@ -36,7 +37,7 @@ const Nodes = () => {
       </ul>
     </>
   } else if(nodes.length === 1 && nodes[0].children.length === 0) {
-    return <p>{nodes[0].payload}</p>
+    return <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(nodes[0].payload)}}></p>
   } else {
     return <>
       <ul>
