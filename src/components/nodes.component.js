@@ -31,7 +31,7 @@ const Nodes = () => {
       <ul>
         {nodes.map(n => {
           if(!n.children || !n.children.length) return;
-          return <li key={n.title}><input type="button" value={n.title} onClick={() => follow(n._id)} /></li>
+          return <li key={n.title}><input className="btn" type="button" value={n.title} onClick={() => follow(n._id)} /></li>
         })}
       </ul>
     </>
@@ -42,7 +42,7 @@ const Nodes = () => {
       <ul>
         {nodes.map(n => {
           if(!n.children || !n.children.length) return;
-          return <li key={n.title}><input type="button" value={n.title} onClick={() => follow(n._id)} /></li>
+          return <li key={n.title}><input className="btn" type="button" value={n.title} onClick={() => follow(n._id)} /></li>
         })}
       </ul>
     </>
