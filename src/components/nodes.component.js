@@ -28,8 +28,6 @@ const Nodes = () => {
   /* @TODO refactor this mess */
   if(nodes.length && !nodes[0].parent){
     return <>
-      <h1>Nodes</h1>
-      <Link to="/logout" onClick={AuthService.logout}>Logout</Link>
       <ul>
         {nodes.map(n => {
           if(!n.children || !n.children.length) return;

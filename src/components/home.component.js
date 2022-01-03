@@ -3,7 +3,7 @@ import React from 'react';
 import Nodes from './nodes.component';
 
 const Home = () => {
-  return <Nodes />
+  return <div class="card"><Nodes /></div>
 };
 
 export default Home;
