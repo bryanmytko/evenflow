@@ -15,6 +15,19 @@ class UserService {
   getNodeChildren(id) {
     return axios.get(`${BASE_URL}/api/node/children/${id}`, { headers: authHeader() });
   }
+ 
+  createNode({ title }) {
+    return axios.post(`${BASE_URL}/api/node/create`,
+      { title },
+      { headers: authHeader() }
+    ).then(res => {
+      // Notify user here
+      console.log('Response: ', res);
+    }).catch(err => {
+      // Do something with this
+      console.error(err);
+    });
+  }
 }
 
 export default new UserService();
