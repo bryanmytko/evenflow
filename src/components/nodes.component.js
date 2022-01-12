@@ -11,6 +11,7 @@ const Nodes = () => {
   useEffect(async () => {
     if(AuthService.currentUser()) {
       UserService.getNodes().then((response) => {
+        console.log(response);
         setNodes(response.data.nodes);
       });
     }
