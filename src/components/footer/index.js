@@ -1,11 +1,11 @@
 import React from 'react';
 
 const Footer = () => {
-  return <footer className="cyan darken-1">
+  return <footer>
     <div className="container center-align">
-      <span className="black-text">&copy; 2021 </span>
+      <span>&copy; 2021 </span>
       <a href="http://bryanmytko.com">Bryan Mytko</a>
-      <span className="black-text"> &#9829; </span>
+      <span> &#9829; </span>
       <a href="https://github.com/bryanmytko">Github</a>
     </div>
   </footer>

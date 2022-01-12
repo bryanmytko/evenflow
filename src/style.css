@@ -5,15 +5,26 @@ body, html {
 }
 
 header {
-  padding: 1em;
+}
+
+nav {
+  background: #192e46;
 }
 
 main {
   flex: 1 0 auto;
+  background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
 }
 
 footer {
   padding: 1em  0;
+  background: #0c0c0c;
+}
+
+footer span,
+footer a {
+  font-size: 0.9em;
+  color: #bbb;
 }
 
 div#app {
@@ -23,11 +34,11 @@ div#app {
 }
 
 .btn, .btn-small, .btn-large {
-  background-color: #00acc1 !important;
+  background-color: #ff4081 !important;
 }
 
 .btn:hover, .btn-small:hover, .btn-large:hover {
-  background-color: #ff4081 !important;
+  background-color: #00acc1 !important;
 }
 
 h3 {
@@ -44,10 +55,6 @@ h4 {
 
 strong {
   font-weight: 600;
-}
-
-ul li {
-  margin: 1em 0;
 }
 
 .node-card {

@@ -2,10 +2,10 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link } from "react-router-dom";
 import DOMPurify from 'dompurify';
 
-import AuthService from '../services/auth.service';
-import UserService from '../services/user.service';
+import AuthService from '../../services/auth.service';
+import UserService from '../../services/user.service';
 
-const Nodes = () => {
+const Chart = () => {
   const [nodes, setNodes] = useState([]);
 
   useEffect(async () => {
@@ -51,4 +51,4 @@ const Nodes = () => {
   }
 };
 
-export default Nodes;
+export default Chart;

@@ -3,8 +3,7 @@ import { render } from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 
 import App from './App';
-import Header from './components/layout/header.component';
-import Footer from './components/layout/footer.component';
+import { Footer, Header } from './components';
 
 import 'materialize-css/dist/css/materialize.min.css'
 import './style.css';

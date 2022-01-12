@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Nodes from './nodes.component';
-import ChartList from './chartList.component';
+import { ChartCreate, ChartList } from '../';
 
 const Home = () => {
   return <div className="container">
@@ -14,7 +13,7 @@ const Home = () => {
       <div className="card node-card col s8 offset-s2">
         <h5>Add Chart</h5>
         <p>
-          <Link to="/createNode" className="btn">Create</Link>
+          <Link to="/chart/create" className="btn">Create</Link>
         </p>
       </div>
     </div>

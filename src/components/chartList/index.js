@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import UserService from '../services/user.service';
-import AuthService from '../services/auth.service';
+import UserService from '../../services/user.service';
+import AuthService from '../../services/auth.service';
 
 const ChartList = () => {
   const [charts, setCharts] = useState([]);
@@ -12,7 +12,7 @@ const ChartList = () => {
         setCharts(response.data.nodes);
       });
     }
-  });
+  }, []);
 
   return <>
     <ul>

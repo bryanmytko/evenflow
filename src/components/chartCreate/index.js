@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import UserService from '../services/user.service';
 
-const createNode = () => {
+import UserService from '../../services/user.service';
+
+const ChartCreate = () => {
   const [title, setTitle] = useState('');
 
   const createChart = () => {
@@ -20,4 +21,4 @@ const createNode = () => {
   </div>
 };
 
-export default createNode;
+export default ChartCreate;
