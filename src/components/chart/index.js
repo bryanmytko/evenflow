@@ -1,54 +1,39 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Link } from "react-router-dom";
-import DOMPurify from 'dompurify';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from "react-router-dom";
+// import DOMPurify from 'dompurify';
 
 import AuthService from '../../services/auth.service';
 import UserService from '../../services/user.service';
 
 const Chart = () => {
-  const [nodes, setNodes] = useState([]);
+  const [chart, setChart] = useState([]);
+  const [children, setChildren] = useState([]);
+  const params = useParams();
 
-  useEffect(async () => {
+  useEffect(() => {
     if(AuthService.currentUser()) {
-      UserService.getNodes().then((response) => {
-        console.log(response);
-        setNodes(response.data.nodes);
-      });
+      UserService.getNode(params.id)
+        .then(response => setChart(response.data));
+      UserService.getNodeChildren(params.id)
+        .then(response => setChildren(response.data.nodes));
     }
-  }, []);
+  }, [params.id]);
 
-  function follow(id){
-    if(AuthService.currentUser()) {
-      UserService.getNodeChildren(id).then((response) => {
-        // prevState.current = nodes;
-        console.log('getting kids:', response.data)
-        setNodes(response.data.nodes);
-      });
-    }
-  }
-
-  /* @TODO refactor this mess */
-  if(nodes.length && !nodes[0].parent){
-    return <>
-      <ul>
-        {nodes.map(n => {
-          if(!n.children || !n.children.length) return;
-          return <li key={n.title}><input className="btn" type="button" value={n.title} onClick={() => follow(n._id)} /></li>
-        })}
-      </ul>
-    </>
-  } else if(nodes.length === 1 && nodes[0].children.length === 0) {
-    return <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(nodes[0].payload)}}></p>
-  } else {
-    return <>
-      <ul>
-        {nodes.map(n => {
-          if(!n.children || !n.children.length) return;
-          return <li key={n.title}><input className="btn" type="button" value={n.title} onClick={() => follow(n._id)} /></li>
-        })}
-      </ul>
-    </>
-  }
+  return <div className="container">
+    <div className="row padding-20">
+      <div className="card node-card col s8 offset-s2">
+        <h5>{chart.title}</h5>
+        <em>{chart._id}</em>
+         <ul>
+           {children.map(c => {
+             return <li key={c.title}>
+               <Link className="btn" to={`/chart/${c._id}`}>{c.title}</Link>
+             </li>
+           })}
+       </ul>
+      </div>
+    </div>
+  </div>
 };
 
 export default Chart;

@@ -3,23 +3,27 @@ import { useNavigate } from "react-router-dom";
 
 import AuthService from '../../services/auth.service';
 
+import './style.css';
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await AuthService.login(email, password);
+    /* @TODO need a way to do error handling */
+    const response = await AuthService.login(email, password);
     return navigate('/', { replace: true });
   };
 
     return <div className="container main-container">
       <div className="row">
         <div className="col s12 m8 l6 offset-m2 offset-l3">
-          <div className="logo">evenflow.</div>
-          <div className="card-panel">
+          <div className="card-panel login-panel">
             <div className="row no-margin-bottom">
-              <form onSubmit={handleSubmit}>
+              <form className="login" onSubmit={handleSubmit}>
               <div className="field">
                 <label>Email:</label><input type="text" value={email} onChange={e => setEmail(e.target.value)} />
               </div>
