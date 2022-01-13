@@ -9,7 +9,6 @@ const ChartList = () => {
 
   useEffect(() => {
     if(AuthService.currentUser()) {
-      /* @TODO this needs to be only top-level nodes!!! */
       UserService.getNodes().then(response => {
         setCharts(response.data.nodes);
       });

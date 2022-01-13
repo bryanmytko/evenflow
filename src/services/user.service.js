@@ -16,15 +16,13 @@ class UserService {
     return axios.get(`${BASE_URL}/api/node/children/${id}`, { headers: authHeader() });
   }
  
-  createNode({ title }) {
+  createNode({ title, parentId, payload }) {
     return axios.post(`${BASE_URL}/api/node/create`,
-      { title },
+      { title, parentId, payload },
       { headers: authHeader() }
     ).then(res => {
-      // Notify user here
-      console.log('Response: ', res);
+      return res;
     }).catch(err => {
-      // Do something with this
       console.error(err);
     });
   }
