@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = process.env.BASE_URL;
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 class AuthService {
   currentUser() {
@@ -19,7 +19,7 @@ class AuthService {
       );
 
       localStorage.setItem('token', JSON.stringify(response.data.token));
-      window.location.reload();
+      return response;
     } catch(err) {
       console.log('Error:', err);
     }
