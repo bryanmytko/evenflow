@@ -1,20 +1,39 @@
-import React from "react";
-import { render } from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import reportWebVitals from './reportWebVitals';
 
 import App from './App';
-import { Footer, Header } from './components';
+import { Chart, ChartCreate, Home, Login } from './components';
+import AuthService from './services/auth.service';
 
 import 'materialize-css/dist/css/materialize.min.css'
 import './style.css';
 
-render(
+const RequireAuth = ({children}) => {
+  return AuthService.currentUser() ? children : <Navigate to="/login" />;
+}
+
+ReactDOM.render(
+  <React.StrictMode>
   <BrowserRouter>
-    <Header />
-    <main className="grey lighten-4">
-      <App />
-    </main>
-    <Footer />
-  </BrowserRouter>,
-  document.getElementById("app")
+    <Routes>
+      <Route path="/" element={<App />}>
+        <Route path="/" element={<RequireAuth><Home /></RequireAuth>} />
+        <Route path="login" element={<Login />} />
+        <Route path="chart">
+          <Route path="create" element={<RequireAuth><ChartCreate /></RequireAuth>} />
+          <Route path=":id" element={<Chart />} />
+        </Route>
+        <Route path="*" element={<h1>404</h1>} />
+      </Route>
+    </Routes>
+  </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
