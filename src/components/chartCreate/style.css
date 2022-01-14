@@ -16,6 +16,43 @@
 
 .indented {
   margin-left: 30px;
+  border: 1px solid #fff;
   border-left: 4px solid red;
   padding: 12px;
+}
+
+.create-node-unit {
+  margin: 10px 0 0 40px;
+}
+
+.chart-create-container .create-node-unit label {
+  width: 200px;
+  border: 1px solid #000;
+  padding: 4px;
+  font-size: 1.1em;
+  display: inline-block;
+  margin: 0 10px 0 0;
+}
+
+.chart-create-container .create-node-unit label.title {
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.chart-create-container .create-node-unit input {
+  width: 200px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  padding: 0 4px;
+  margin: 4px 10px;
+  height: 2em;
+  background: #fff;
+}
+
+.create-node-unit button {
+  display: inline;
+}
+
+.chart-create-control {
+  padding: 20px;
 }
