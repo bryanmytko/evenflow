@@ -15,15 +15,12 @@ const ChartList = () => {
     }
   }, []);
 
-  console.log(charts)
-
   return <>
     <ul>
       {charts.map(n => <li key={n.title}>
         <Link to={`/chart/${n._id}`} className="btn">{n.title}</Link></li>)}
     </ul>
     </>
-
 };
 
 export default ChartList;
