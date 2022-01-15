@@ -6,35 +6,31 @@ import { UserService, ObjectService } from '../../services';
 import './style.css';
 
 const ChartCreate = () => {
-  /* @TODO consider a reducer: ADD_CHILD, CREATE_PARENT, etc., */
-  const [chartData, setChartData] = useState({});
+  const [tree, setTree] = useState({ title: '' });
   const [newTitle, setNewTitle] = useState('');
-  const [parentId, setParentId] = useState('');
-  const [parent, setParent] = useState({ title: '' });
+  const [newNodeParentId, setNewNodeParentId] = useState('');
   const [showForm, setShowForm] = useState(false);
 
   const initializeForm = (node) => {
     setShowForm(!showForm);
-    setParentId(node.id);
+    setNewNodeParentId(node.id);
   };
 
   const createChild = async () => {
-    const response = await UserService.createNode({ title: newTitle, parentId });
+    const response = await UserService.createNode({ title: newTitle, parentId: newNodeParentId });
     const childData = { title: newTitle, id: response.data.node._id };
-    const newData = ObjectService.insertChildNode(chartData.nodes, parentId, childData);
+    const newData = ObjectService.insertChildNode([tree], newNodeParentId, childData);
 
-    setChartData({ nodes: newData });
     setShowForm(false);
     setNewTitle('');
   };
 
-  const createParent = async () => {
-    const response = await UserService.createNode({ title: parent.title });
+  const createTreeRoot = async () => {
+    const response = await UserService.createNode({ title: tree.title });
     const { node } = response.data;
-    const parentData = { title: parent.title, id: node._id, children: [] };
+    const data = { title: tree.title, id: node._id, children: [] };
 
-    setChartData({ nodes: [parentData]});
-    setParent(parentData);
+    setTree(data);
   };
 
   const showChildren = (child, index) => {
@@ -49,20 +45,20 @@ const ChartCreate = () => {
   }
 
   const showContent = () => {
-    if(!parent.id){
+    if(!tree.id){
       return <div className="chart-create-form card">
         <label>Chart Name:</label>
-        <input value={parent.title} onChange={e => setParent({ title: e.target.value })} />
-        <button className="btn" onClick={createParent}>Save</button>
+        <input value={tree.title} onChange={e => setTree({ title: e.target.value })} />
+        <button className="btn" onClick={createTreeRoot}>Save</button>
       </div>;
     }
 
     return <>
-      <h5>{parent.title}
-        <button className="btn" onClick={() => initializeForm(parent)}>+</button>
+      <h5>{tree.title}
+        <button className="btn" onClick={() => initializeForm(tree)}>+</button>
       </h5>
       <ul className="wtree">
-        {(parent.children || []).map((child, index) => showChildren(child, index))}
+        {(tree.children || []).map((child, index) => showChildren(child, index))}
       </ul>
       <div className={`chart-create-form card ${(showForm ? '' : 'hide')}`}>
         <input value={newTitle}
