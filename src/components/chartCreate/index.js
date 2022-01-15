@@ -8,21 +8,24 @@ import './style.css';
 const ChartCreate = () => {
   /* @TODO consider a reducer: ADD_CHILD, CREATE_PARENT, etc., */
   const [chartData, setChartData] = useState({});
-  const [workingChild, setWorkingChild] = useState({ title: '', id: '' });
+  const [newTitle, setNewTitle] = useState('');
   const [parentId, setParentId] = useState('');
   const [parent, setParent] = useState({ title: '' });
   const [showForm, setShowForm] = useState(false);
 
-  const initializeForm = (child) => {
+  const initializeForm = (node) => {
     setShowForm(!showForm);
-    setParentId(child.id);
+    setParentId(node.id);
   };
 
-  const createChildNode = () => {
-    const newData = ObjectService.insertChildNode(chartData.nodes, parentId, workingChild);
+  const createChild = async () => {
+    const response = await UserService.createNode({ title: newTitle, parentId });
+    const childData = { title: newTitle, id: response.data.node._id };
+    const newData = ObjectService.insertChildNode(chartData.nodes, parentId, childData);
+
     setChartData({ nodes: newData });
     setShowForm(false);
-    setWorkingChild({ title: '' });
+    setNewTitle('');
   };
 
   const createParent = async () => {
@@ -34,13 +37,13 @@ const ChartCreate = () => {
     setParent(parentData);
   };
 
-  const showChildren = (child) => {
-    return <li key={child.id}>
+  const showChildren = (child, index) => {
+    return <li key={index}>
       <span>{child.title}
         <button className="btn" onClick={() => initializeForm(child)}>+</button>
       </span>
       <ul>
-      {(child.children || []).map((child, index) => showChildren(child))}
+      {(child.children || []).map((child, index) => showChildren(child, index))}
       </ul>
     </li>;
   }
@@ -59,12 +62,12 @@ const ChartCreate = () => {
         <button className="btn" onClick={() => initializeForm(parent)}>+</button>
       </h5>
       <ul className="wtree">
-        {(parent.children || []).map((child, index) => showChildren(child))}
+        {(parent.children || []).map((child, index) => showChildren(child, index))}
       </ul>
       <div className={`chart-create-form card ${(showForm ? '' : 'hide')}`}>
-        <input value={workingChild.title}
-          onChange={e => setWorkingChild({ title: e.target.value, id: Math.floor(Math.random()*100) })} />
-        <button className="btn" onClick={createChildNode}>SAVE</button>
+        <input value={newTitle}
+          onChange={e => setNewTitle(e.target.value)} />
+        <button className="btn" onClick={createChild}>Save</button>
       </div>
     </>;
   }
