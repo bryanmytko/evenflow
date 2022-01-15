@@ -14,7 +14,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     /* @TODO need a way to do error handling */
-    const response = await AuthService.login(email, password);
+    await AuthService.login(email, password);
     return navigate('/', { replace: true });
   };
 

@@ -31,7 +31,25 @@
 
 /* https://codepen.io/willpower/pen/pJKdej */
 
-ul {
+.chart-create-form [type="checkbox"]+span:not(.lever) {
+  padding-left: 25px;
+  margin-bottom: 16px;
+}
+
+.chart-create-form [type="checkbox"] + span:not(.lever)::before {
+  border: 2px solid transparent;
+  background: #fff;
+}
+
+.chart-create-form [type="checkbox"]:checked + span:not(.lever)::before {
+  border-right: 2px solid #ff4081 ;
+  border-bottom: 2px solid #ff4081 ;
+  background: transparent;
+  position: absolute;
+  top: -5px;
+}
+
+.chart-create-container ul {
   margin-left: 20px;
 }
 

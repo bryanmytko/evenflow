@@ -1,28 +1,29 @@
 import React from 'react';
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 
 import { UserService, ObjectService } from '../../services';
+import { NewChildFormReducer } from '../../reducers';
 
 import './style.css';
 
+const initialState = {
+  hidden: true,
+  terminating: false,
+  parentId: '',
+  title: '',
+};
+
 const ChartCreate = () => {
   const [tree, setTree] = useState({ title: '' });
-  const [newTitle, setNewTitle] = useState('');
-  const [newNodeParentId, setNewNodeParentId] = useState('');
-  const [showForm, setShowForm] = useState(false);
-
-  const initializeForm = (node) => {
-    setShowForm(!showForm);
-    setNewNodeParentId(node.id);
-  };
+  const [state, dispatch] = useReducer(NewChildFormReducer, initialState);
 
   const createChild = async () => {
-    const response = await UserService.createNode({ title: newTitle, parentId: newNodeParentId });
-    const childData = { title: newTitle, id: response.data.node._id };
-    const newData = ObjectService.insertChildNode([tree], newNodeParentId, childData);
+    const response = await UserService
+      .createNode({ title: state.title, parentId: state.parentId });
+    const childData = { title: state.title, id: response.data.node._id };
+    ObjectService.insertChildNode([tree], state.parentId, childData);
 
-    setShowForm(false);
-    setNewTitle('');
+    dispatch({ type: 'HIDDEN' });
   };
 
   const createTreeRoot = async () => {
@@ -36,10 +37,11 @@ const ChartCreate = () => {
   const showChildren = (child, index) => {
     return <li key={index}>
       <span>{child.title}
-        <button className="btn" onClick={() => initializeForm(child)}>+</button>
+        <button className="btn" onClick={
+          () => dispatch({ type: 'NEW_CHILD', parentId: child.id })}>+</button>
       </span>
       <ul>
-      {(child.children || []).map((child, index) => showChildren(child, index))}
+        {(child.children || []).map((child, index) => showChildren(child, index))}
       </ul>
     </li>;
   }
@@ -55,15 +57,25 @@ const ChartCreate = () => {
 
     return <>
       <h5>{tree.title}
-        <button className="btn" onClick={() => initializeForm(tree)}>+</button>
+        <button className="btn" onClick={
+          () => dispatch({ type: 'NEW_CHILD', parentId: tree.id })}>+</button>
       </h5>
       <ul className="wtree">
         {(tree.children || []).map((child, index) => showChildren(child, index))}
       </ul>
-      <div className={`chart-create-form card ${(showForm ? '' : 'hide')}`}>
-        <input value={newTitle}
-          onChange={e => setNewTitle(e.target.value)} />
-        <button className="btn" onClick={createChild}>Save</button>
+      <div className={`chart-create-form card ${(state.hidden ? 'hide' : '')}`}>
+        <label>
+          <input type="checkbox" className="white" />
+          <span>Terminating node?</span>
+        </label>
+        <input value={state.title}
+          onChange={e => dispatch({
+            type: 'VALUE_CHANGE',
+            title: e.target.value
+          })} />
+        <button className="btn" onClick={createChild}>Save Child</button>
+        <textarea></textarea>
+        <button className="btn" onClick={createChild}>Save Payload</button>
       </div>
     </>;
   }
