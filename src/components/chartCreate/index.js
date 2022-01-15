@@ -10,7 +10,10 @@ const initialState = {
   hidden: true,
   terminating: false,
   parentId: '',
-  title: '',
+  formData: {
+    title: '',
+    payload: ''
+  }
 };
 
 const ChartCreate = () => {
@@ -23,6 +26,15 @@ const ChartCreate = () => {
     const childData = { title: state.title, id: response.data.node._id };
     ObjectService.insertChildNode([tree], state.parentId, childData);
 
+    dispatch({ type: 'HIDDEN' });
+  };
+
+  const createTerminatingChild = async () => {
+    console.log('create a terminating child');
+    console.log(state.formData);
+    // Save via API
+    // Remove + button from parent node
+    // Reset state
     dispatch({ type: 'HIDDEN' });
   };
 
@@ -65,17 +77,26 @@ const ChartCreate = () => {
       </ul>
       <div className={`chart-create-form card ${(state.hidden ? 'hide' : '')}`}>
         <label>
-          <input type="checkbox" className="white" />
+          <input type="checkbox" className="white" onClick={
+            () => dispatch(state.terminating ? { type: 'NEW_CHILD' } : { type: 'TERMINATING' })
+          } />
           <span>Terminating node?</span>
         </label>
-        <input value={state.title}
+        <input value={state.formData.title}
+          placeholder="Title"
           onChange={e => dispatch({
             type: 'VALUE_CHANGE',
-            title: e.target.value
+            formData: { title: e.target.value }
           })} />
-        <button className="btn" onClick={createChild}>Save Child</button>
-        <textarea></textarea>
-        <button className="btn" onClick={createChild}>Save Payload</button>
+        <div className={ state.terminating ? 'hide' : '' }>
+          <button className="btn" onClick={createChild}>Save Node</button>
+        </div>
+        <div className={ state.terminating ? '' : 'hide' }>
+          <textarea value={state.formData.payload} onChange={
+            e => dispatch({ type: 'VALUE_CHANGE', formData: { payload: e.target.value }})}>
+          </textarea>
+          <button className="btn" onClick={createTerminatingChild}>Save Node</button>
+        </div>
       </div>
     </>;
   }
