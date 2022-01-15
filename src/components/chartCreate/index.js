@@ -6,40 +6,77 @@ import UserService from '../../services/user.service';
 
 import './style.css';
 
-const ChartCreate = () => {
-  const [parent, setParent] = useState({ title: '', id: '', saved: false });
-  const [children, setChildren] = useState([]);
-
-  const createChart = async () => {
-    const response = await UserService.createNode({ title: parent.title });
-    setParent({ ...parent, id: response.data.node._id, saved: true });
+const insertChildNode = (data, id, childNode) => {
+  const iter = (a) => {
+    if (a.id === id) {
+      a.children ? a.children.push(childNode) : a.children = [childNode];
+      return true;
+    }
+    return Array.isArray(a.children) && a.children.some(iter);
   }
 
-  const addChildForm = () => {
-    setChildren([...children, children.length + 1]);
+  data.some(iter);
+  return data;
+};
+
+const ChartCreate = () => {
+  /* @TODO consider a reducer: ADD_CHILD, CREATE_PARENT, etc., */
+  const [chartData, setChartData] = useState({});
+  const [workingChild, setWorkingChild] = useState({ title: '', id: '' });
+  const [parentId, setParentId] = useState('');
+  const [parent, setParent] = useState({ title: '' });
+  const [showForm, setShowForm] = useState(false);
+
+  const addChildNode = () => {
+    const newData = insertChildNode(chartData.nodes, parentId, workingChild);
+    setChartData({ nodes: newData });
+    setShowForm(false);
+    setWorkingChild({ title: '' });
+  };
+
+  const initializeForm = (child) => {
+    setShowForm(!showForm);
+    setParentId(child.id);
+  };
+
+  const createParent = async () => {
+    const response = await UserService.createNode({ title: parent.title });
+    const { node } = response.data;
+    const parentData = { title: parent.title, id: node._id, children: [] };
+
+    setChartData({ nodes: [parentData]});
+    setParent(parentData);
+  };
+
+  const returnChildren = (child) => {
+    return <div key={child.id} className="create-node-unit">
+      <label>{child.title}</label>
+      <button className="btn" onClick={() => initializeForm(child)}>+</button>
+      {(child.children || []).map((child, index) => returnChildren(child))}
+    </div>
+  }
+
+  if(!parent.id){
+    return <div className="chart-create-container container">
+      <label>Chart Name:</label>
+      <input value={parent.title} onChange={e => setParent({ title: e.target.value })} />
+      <button className="btn" onClick={createParent}>Save</button>
+    </div>;
   }
 
   return <div className="chart-create-container container">
-    <div className="row">
-      <div className="col s8 offset-s2">
-        <h5>Create Chart</h5>
+    <div className="create-node-unit">
+      <label className="title">{parent.title}</label>
+      <button className="btn" onClick={() => initializeForm(parent)}>+</button>
+      {(parent.children || []).map((child, index) => returnChildren(child))}
 
-        <p className={parent.saved ? '' : 'hide'}>{parent.title}</p>
-
-        <input placeholder="Title"
-          className={parent.saved ? 'hide' : ''}
-          value={parent.title}
-          onChange={e => setParent({ title: e.target.value })} />
-        <button className={`btn ${parent.saved ? 'hide' : ''}`}
-          onClick={createChart}>Save</button>
-
-        <button className={`btn ${parent.saved ? '' : 'hide'}`}
-          onClick={addChildForm}>Add Child</button>
-
-        {children.map((n, index) => <ChartCreateChild key={index} parent={parent} addChildForm={addChildForm} setParent={setParent} />)}
+      <div className={`chart-create-control card green lighten-2 ${(showForm ? '' : 'hide')}`}>
+        <input value={workingChild.title}
+          onChange={e => setWorkingChild({ title: e.target.value, id: Math.floor(Math.random()*100) })} />
+        <button className="btn" onClick={addChildNode}>SAVE</button>
       </div>
     </div>
-  </div>
+  </div>;
 };
 
 export default ChartCreate;

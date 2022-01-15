@@ -15,7 +15,7 @@ class UserService {
   getNodeChildren(id) {
     return axios.get(`${BASE_URL}/api/node/children/${id}`, { headers: authHeader() });
   }
- 
+
   createNode({ title, parentId, payload }) {
     return axios.post(`${BASE_URL}/api/node/create`,
       { title, parentId, payload },
