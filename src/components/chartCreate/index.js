@@ -21,20 +21,12 @@ const ChartCreate = () => {
   const [state, dispatch] = useReducer(NewChildFormReducer, initialState);
 
   const createChild = async () => {
-    const response = await UserService
-      .createNode({ title: state.title, parentId: state.parentId });
-    const childData = { title: state.title, id: response.data.node._id };
-    ObjectService.insertChildNode([tree], state.parentId, childData);
+    const { title, payload } = state.formData;
+    const { parentId } = state;
+    const response = await UserService.createNode({ title, payload, parentId });
+    const childData = { title, payload, id: response.data.node._id };
 
-    dispatch({ type: 'HIDDEN' });
-  };
-
-  const createTerminatingChild = async () => {
-    console.log('create a terminating child');
-    console.log(state.formData);
-    // Save via API
-    // Remove + button from parent node
-    // Reset state
+    ObjectService.insertChildNode([tree], parentId, childData);
     dispatch({ type: 'HIDDEN' });
   };
 
@@ -49,8 +41,9 @@ const ChartCreate = () => {
   const showChildren = (child, index) => {
     return <li key={index}>
       <span>{child.title}
-        <button className="btn" onClick={
+        <button className={`btn ${child.payload ? 'hide' : ''}`} onClick={
           () => dispatch({ type: 'NEW_CHILD', parentId: child.id })}>+</button>
+        <span className="payload">{child.payload}</span>
       </span>
       <ul>
         {(child.children || []).map((child, index) => showChildren(child, index))}
@@ -77,9 +70,12 @@ const ChartCreate = () => {
       </ul>
       <div className={`chart-create-form card ${(state.hidden ? 'hide' : '')}`}>
         <label>
-          <input type="checkbox" className="white" onClick={
-            () => dispatch(state.terminating ? { type: 'NEW_CHILD' } : { type: 'TERMINATING' })
-          } />
+          <input type="checkbox"
+            className="white"
+            checked={!!state.terminating}
+            onChange={
+              () => dispatch({ type: 'TERMINATING' })
+            } />
           <span>Terminating node?</span>
         </label>
         <input value={state.formData.title}
@@ -95,7 +91,7 @@ const ChartCreate = () => {
           <textarea value={state.formData.payload} onChange={
             e => dispatch({ type: 'VALUE_CHANGE', formData: { payload: e.target.value }})}>
           </textarea>
-          <button className="btn" onClick={createTerminatingChild}>Save Node</button>
+          <button className="btn" onClick={createChild}>Save Node</button>
         </div>
       </div>
     </>;
