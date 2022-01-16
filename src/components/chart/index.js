@@ -37,7 +37,7 @@ const Chart = () => {
     <div className="row padding-20">
       <div className="card node-card col s8 offset-s2">
         <h5>{chart.title}</h5>
-        <em>{chart._id}</em>
+        <hr />
         {content()}
       </div>
     </div>
