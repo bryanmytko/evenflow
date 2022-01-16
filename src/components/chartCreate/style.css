@@ -9,6 +9,11 @@
 .chart-create-form.card {
   background: #192f46;
   padding: 20px;
+  position: absolute;
+  z-index: 99999;
+  border: 2px solid #080808;
+  border-radius: 4px;
+  width: 400px;
 }
 
 .chart-create-form.card input {

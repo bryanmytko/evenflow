@@ -1,6 +1,7 @@
 import React from 'react';
 import { useReducer, useState } from 'react';
 
+import { ChartCreateForm } from '../';
 import { UserService, ObjectService } from '../../services';
 import { NewChildFormReducer } from '../../reducers';
 
@@ -18,6 +19,7 @@ const initialState = {
 
 const ChartCreate = () => {
   const [tree, setTree] = useState({ title: '' });
+  const [position, setPosition] = useState({ x: 0, y: 200 });
   const [state, dispatch] = useReducer(NewChildFormReducer, initialState);
 
   const createChild = async () => {
@@ -38,18 +40,24 @@ const ChartCreate = () => {
     setTree(data);
   };
 
+  const toggleModal = (e, child) => {
+    setPosition({ x: e.pageX, y: e.pageY });
+    dispatch({ type: 'NEW_CHILD', parentId: child.id });
+  }
+
   const showChildren = (child, index) => {
     return <li key={index}>
       <span>{child.title}
-        <button className={`btn ${child.payload ? 'hide' : ''}`} onClick={
-          () => dispatch({ type: 'NEW_CHILD', parentId: child.id })}>+</button>
+      <button className={`btn ${child.payload ? 'hide' : ''}`}
+        id={`button-${index}`}
+        onClick={(e) => toggleModal(e, child)}>+</button>
         <span className="payload">{child.payload}</span>
       </span>
       <ul>
         {(child.children || []).map((child, index) => showChildren(child, index))}
       </ul>
     </li>;
-  }
+  };
 
   const showContent = () => {
     if(!tree.id){
@@ -62,38 +70,17 @@ const ChartCreate = () => {
 
     return <>
       <h5>{tree.title}
-        <button className="btn" onClick={
-          () => dispatch({ type: 'NEW_CHILD', parentId: tree.id })}>+</button>
+        <button className="btn" onClick={(e) => toggleModal(e, tree)}>+</button>
       </h5>
       <ul className="wtree">
         {(tree.children || []).map((child, index) => showChildren(child, index))}
       </ul>
-      <div className={`chart-create-form card ${(state.hidden ? 'hide' : '')}`}>
-        <label>
-          <input type="checkbox"
-            className="white"
-            checked={!!state.terminating}
-            onChange={
-              () => dispatch({ type: 'TERMINATING' })
-            } />
-          <span>Terminating node?</span>
-        </label>
-        <input value={state.formData.title}
-          placeholder="Title"
-          onChange={e => dispatch({
-            type: 'VALUE_CHANGE',
-            formData: { title: e.target.value }
-          })} />
-        <div className={ state.terminating ? 'hide' : '' }>
-          <button className="btn" onClick={createChild}>Save Node</button>
-        </div>
-        <div className={ state.terminating ? '' : 'hide' }>
-          <textarea value={state.formData.payload} onChange={
-            e => dispatch({ type: 'VALUE_CHANGE', formData: { payload: e.target.value }})}>
-          </textarea>
-          <button className="btn" onClick={createChild}>Save Node</button>
-        </div>
-      </div>
+      <ChartCreateForm
+        createChild={createChild}
+        dispatch={dispatch}
+        state={state}
+        position={position}
+      />
     </>;
   }
 
