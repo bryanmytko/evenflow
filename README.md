@@ -1,4 +1,4 @@
-# Evenflow
+# Treeflow
 
 A minimalist flow chart application.
 
