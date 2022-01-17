@@ -7,7 +7,7 @@ const Header = () => {
   return <header>
     <nav>
       <div className="container nav-wrapper">
-        <Link to="/">Evenflow.</Link>
+        <Link to="/">Treeflow.</Link>
         <ul className="right">
           <li>
             <Link to="/logout" onClick={AuthService.logout}>Logout</Link>
