@@ -20,7 +20,8 @@ const Login = () => {
 
     return <div className="container main-container">
       <div className="row">
-        <div className="col s12 m8 l6 offset-m2 offset-l3">
+        <div className="col s12">
+            <p>treeflow.</p>
           <div className="card-panel login-panel">
             <div className="row no-margin-bottom">
               <form className="login" onSubmit={handleSubmit}>

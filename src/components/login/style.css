@@ -1,3 +1,5 @@
 .card-panel.login-panel {
-  margin-top: 20vh;;
+  margin-top: 20vh;
+  padding: 2em 4em ;
+  border-radius: 6px;
 }
