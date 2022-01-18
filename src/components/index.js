@@ -1,6 +1,7 @@
 export { default as Chart } from './chart';
 export { default as ChartCreate } from './chartCreate';
 export { default as ChartCreateForm } from './chartCreateForm';
+export { default as ChartEdit } from './chartEdit';
 export { default as ChartList } from './chartList';
 export { default as Footer } from './footer';
 export { default as Header } from './header';

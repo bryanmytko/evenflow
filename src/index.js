@@ -4,7 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 
 import App from './App';
-import { Chart, ChartCreate, Home, Login, Signup } from './components';
+import { Chart, ChartCreate, ChartEdit, Home, Login, Signup } from './components';
 import AuthService from './services/auth.service';
 
 import 'materialize-css/dist/css/materialize.min.css'
@@ -24,6 +24,7 @@ ReactDOM.render(
         <Route path="signup" element={<Signup />} />
         <Route path="chart">
           <Route path="create" element={<RequireAuth><ChartCreate /></RequireAuth>} />
+          <Route path="edit/:id" element={<RequireAuth><ChartEdit /></RequireAuth>} />
           <Route path=":id" element={<Chart />} />
         </Route>
         <Route path="*" element={<h1>404</h1>} />
