@@ -15,11 +15,15 @@ const ChartList = () => {
     }
   }, []);
 
-  return <>
-    <ul>
+  const showCharts = () => {
+    return <ul>
       {charts.map(n => <li key={n._id}>
         <Link to={`/chart/${n._id}`} className="btn btn-large">{n.title}</Link></li>)}
-    </ul>
+    </ul>;
+  };
+
+  return <>
+    { charts.length ? showCharts() : <em>You don't seem to have any charts yet.</em> }
   </>;
 };
 
