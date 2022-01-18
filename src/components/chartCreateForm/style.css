@@ -43,3 +43,19 @@
   position: absolute;
   top: -5px;
 }
+
+@media only screen and (max-width: 600px) {
+  .main-container .node-card {
+    width: 100%;
+    padding: 0;
+  }
+  .main-container .node-card .chart-create-form {
+    width: 90%;
+    position: fixed;
+    left: initial !important;
+  }
+
+  .btn {
+    margin: 4px 0;
+  }
+}
