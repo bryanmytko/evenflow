@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './style.css';
+
 const ChartCreateForm = (props) => {
   return <>
     <div

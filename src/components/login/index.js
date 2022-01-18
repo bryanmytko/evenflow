@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
+import { Logo } from '../';
 import AuthService from '../../services/auth.service';
 
 import './style.css';
@@ -18,10 +19,10 @@ const Login = () => {
     return navigate('/', { replace: true });
   };
 
-    return <div className="container main-container">
-      <div className="row">
+    return <div className="container main-container valign-wrapper">
+      <div className="row valign-wrapper">
         <div className="col s12">
-            <p>treeflow.</p>
+          <Logo />
           <div className="card-panel login-panel">
             <div className="row no-margin-bottom">
               <form className="login" onSubmit={handleSubmit}>

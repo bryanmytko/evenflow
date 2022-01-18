@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from "react-router-dom";
 // import DOMPurify from 'dompurify';
 
+import { Logo } from '../';
 import AuthService from '../../services/auth.service';
 import UserService from '../../services/user.service';
 
@@ -25,7 +26,7 @@ const Chart = () => {
      return <ul>
        {children.map(c => {
          return <li key={c.title}>
-           <Link className="btn" to={`/chart/${c._id}`}>{c.title}</Link>
+           <Link className="btn btn-large" to={`/chart/${c._id}`}>{c.title}</Link>
          </li>
        })}
      </ul>;
@@ -33,13 +34,12 @@ const Chart = () => {
     return <p>{chart.payload}</p>;
   }
 
-  return <div className="container">
-    <div className="row padding-20">
-      <div className="card node-card col s8 offset-s2">
-        <h5>{chart.title}</h5>
-        <hr />
-        {content()}
-      </div>
+  return <div className="main-container container">
+    <div className="node-card">
+     <Logo />
+      <h5>{chart.title}</h5>
+      <hr />
+      {content()}
     </div>
   </div>
 };

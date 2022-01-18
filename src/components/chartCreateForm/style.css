@@ -1,0 +1,45 @@
+.chart-create-form.card {
+  background: #0c6c78;
+  border-radius: 4px;
+  border: 1px solid #d1d1d1;
+  padding: 20px;
+  position: absolute;
+  width: 400px;
+  z-index: 99999;
+}
+
+.chart-create-form.card input {
+  background: #fff;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  padding: 4px 12px;
+  width: 100%;
+}
+
+.chart-create-form.card input::placeholder {
+  color: #192f46;
+}
+
+.chart-create-form.card label {
+  color: #fff;
+  font-size: 1.2em;
+}
+
+.chart-create-form [type="checkbox"] + span:not(.lever) {
+  margin-bottom: 16px;
+  padding-left: 25px;
+}
+
+.chart-create-form [type="checkbox"] + span:not(.lever)::before {
+  background: #fff;
+  border: 2px solid transparent;
+}
+
+.chart-create-form [type="checkbox"]:checked + span:not(.lever)::before {
+  background: transparent;
+  border-bottom: 2px solid #ff4081 ;
+  border-right: 2px solid #ff4081 ;
+  position: absolute;
+  top: -5px;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useReducer, useState } from 'react';
 
-import { ChartCreateForm } from '../';
+import { ChartCreateForm, Logo } from '../';
 import { UserService, ObjectService } from '../../services';
 import { NewChildFormReducer } from '../../reducers';
 
@@ -61,7 +61,7 @@ const ChartCreate = () => {
 
   const showContent = () => {
     if(!tree.id){
-      return <div className="chart-create-form card">
+      return <div className="chart-create-form card chart-create-initialize">
         <label>Chart Name:</label>
         <input value={tree.title} onChange={e => setTree({ title: e.target.value })} />
         <button className="btn" onClick={createTreeRoot}>Save</button>
@@ -84,7 +84,8 @@ const ChartCreate = () => {
     </>;
   }
 
-  return <div className="chart-create-container container">
+  return <div className="node-card">
+    <Logo />
     {showContent()}
   </div>;
 };
