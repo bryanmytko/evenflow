@@ -16,6 +16,10 @@ class UserService {
     return axios.get(`${BASE_URL}/api/node/children/${id}`, { headers: authHeader() });
   }
 
+  deleteNode(id) {
+    return axios.delete(`${BASE_URL}/api/node/delete/${id}`, { headers: authHeader() });
+  }
+
   createNode({ title, parentId, payload }) {
     return axios.post(`${BASE_URL}/api/node/create`,
       { title, parentId, payload },
