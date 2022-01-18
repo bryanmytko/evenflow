@@ -21,7 +21,8 @@ h5 button,
   margin-left: 1em;
 }
 
-.wtree {
+.wtree,
+.wtree ul {
   margin-left: 20px;
 }
 

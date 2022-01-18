@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from 'react-router-dom';
 // import DOMPurify from 'dompurify';
 
 import { Logo } from '../';
@@ -13,10 +13,10 @@ const Chart = () => {
 
   useEffect(() => {
     if(AuthService.currentUser()) {
-      UserService.getNodeChildren(params.id)
+      UserService.getNode(params.id)
         .then(response => {
           setChart(response.data.node);
-          setChildren(response.data.children);
+          setChildren(response.data.node.children);
         });
     }
   }, [params.id]);
