@@ -7,7 +7,7 @@ const App = () => {
   return <>
     <Header />
     <main>
-      <div className="container">
+      <div className="main-container container">
         <Outlet />
       </div>
     </main>
