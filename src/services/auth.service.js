@@ -29,6 +29,23 @@ class AuthService {
     localStorage.removeItem('token');
     window.location.reload();
   }
+
+  async signup(email, password) {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/api/auth/signup`,
+        {
+          email,
+          password
+        }
+      );
+
+      localStorage.setItem('token', JSON.stringify(response.data.token));
+      return response;
+    } catch(err) {
+      console.log('Error signing up.');
+    }
+  }
 }
 
 export default new AuthService();
