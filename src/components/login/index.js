@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Logo } from '../';
 import AuthService from '../../services/auth.service';
@@ -19,30 +19,31 @@ const Login = () => {
     return navigate('/', { replace: true });
   };
 
-    return <div className="container main-container valign-wrapper">
-      <div className="row valign-wrapper">
-        <div className="col s12">
-          <Logo />
-          <div className="card-panel login-panel">
-            <div className="row no-margin-bottom">
-              <form className="login" onSubmit={handleSubmit}>
-              <div className="field">
-                <label>Email:</label><input type="text" value={email} onChange={e => setEmail(e.target.value)} />
-              </div>
-              <div className="field">
-                <label>Password:</label><input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-              </div>
-              <div className="actions">
-                <div className="card-action right-align">
-                 <input type="submit" value="Login" className="btn" />
-                </div>
-              </div>
-            </form>
+  return <div className="container main-container valign-wrapper">
+    <div className="row valign-wrapper">
+      <div className="col s12">
+        <Logo />
+        <div className="card-panel login-panel">
+          <div className="row no-margin-bottom">
+            <form className="login" onSubmit={handleSubmit}>
+            <div className="field">
+              <label>Email:</label><input type="text" value={email} onChange={e => setEmail(e.target.value)} />
             </div>
+            <div className="field">
+              <label>Password:</label><input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+            </div>
+            <div className="actions">
+              <div className="card-action right-align">
+               <input type="submit" value="Login" className="btn" />
+               <p><Link to="/signup">Sign up?</Link></p>
+              </div>
+            </div>
+          </form>
           </div>
         </div>
       </div>
     </div>
+  </div>
 };
 
 export default Login;

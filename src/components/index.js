@@ -8,3 +8,4 @@ export { default as Home } from './home';
 export { default as Login } from './login';
 export { default as Logo } from './logo';
 export { default as Register } from './register';
+export { default as Signup } from './signup';
