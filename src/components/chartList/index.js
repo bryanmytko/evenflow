@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import UserService from '../../services/user.service';
 import AuthService from '../../services/auth.service';
 
+import './style.css';
+
 const ChartList = () => {
   const [charts, setCharts] = useState([]);
 
@@ -16,10 +18,22 @@ const ChartList = () => {
   }, []);
 
   const showCharts = () => {
-    return <ul>
-      {charts.map(n => <li key={n._id}>
-        <Link to={`/chart/${n._id}`} className="btn btn-large">{n.title}</Link></li>)}
-    </ul>;
+    return <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>View</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {charts.map(n => <tr key={n._id}>
+          <td>{n.title}</td>
+          <td><Link to={`/chart/${n._id}`} className="btn">Chart</Link></td>
+          <td><Link to={`/chart/edit/${n._id}`}>Edit</Link></td>
+        </tr>)}
+      </tbody>
+    </table>;
   };
 
   return <>
