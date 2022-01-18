@@ -1,0 +1,13 @@
+.logo {
+  opacity: 80%;
+  display: block;
+  background: url('../../../public/logo.png') 0 0 no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 100%;
+  height: 2em;
+  text-align: center;
+  padding: 0;
+  color: #00acc1 !important;
+  font-size: 2em;
+}
