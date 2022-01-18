@@ -1,0 +1,20 @@
+header {
+  position: relative;
+}
+
+nav {
+  background: #006a3a;
+  height: 30px !important;
+}
+
+header nav ul li a {
+  color: #000;
+  font-size: 0.9em;
+}
+
+nav .logo-nav {
+  height: 50px;
+  width: 100px;
+  float: left;
+  background-position-y: 16px;
+}
