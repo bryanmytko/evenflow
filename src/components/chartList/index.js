@@ -18,7 +18,7 @@ const ChartList = () => {
   return <>
     <ul>
       {charts.map(n => <li key={n._id}>
-        <Link to={`/chart/${n._id}`} className="btn">{n.title}</Link></li>)}
+        <Link to={`/chart/${n._id}`} className="btn btn-large">{n.title}</Link></li>)}
     </ul>
   </>;
 };
