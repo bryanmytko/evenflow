@@ -38,9 +38,16 @@ const ChartEdit = () => {
     await UserService.updateNode({ id, title, payload });
     const childData = { title, payload };
 
-    const updatedTree = ObjectService.replaceChildNode([tree], id, childData);
-    setTree(updatedTree[0]);
+    const updatedTree = ObjectService.replaceChildNode(tree, id, childData);
+    setTree(updatedTree);
     dispatch({ type: 'HIDDEN' });
+  };
+
+  const deleteNode = async child => {
+    await UserService.deleteNode(child._id);
+
+    const updatedTree = ObjectService.removeChildNode(tree, child._id);
+    setTree(updatedTree);
   };
 
   const toggleModal = (e, child) => {
@@ -58,6 +65,8 @@ const ChartEdit = () => {
         <button className="btn material-icons"
           id={`button-${index}`}
           onClick={e => toggleModal(e, child)}>edit</button>
+        <button className="btn btn-new material-icons"
+          onClick={e => deleteNode(child)}>delete</button>
         <span className="payload">{child.payload}</span>
       </span>
       <ul>
