@@ -25,7 +25,7 @@ const Chart = () => {
     if(children.length){
      return <ul>
        {children.map(c => {
-         return <li key={c.title}>
+         return <li key={c._id}>
            <Link className="btn btn-large" to={`/chart/${c._id}`}>{c.title}</Link>
          </li>
        })}
