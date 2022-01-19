@@ -17,19 +17,19 @@ const ChartCreateForm = (props) => {
         <span>Terminating node?</span>
       </label>
       <input value={props.state.formData.title}
-        placeholder="Title"
+        placeholder={props.state.formData.title}
         onChange={e => props.dispatch({
           type: 'VALUE_CHANGE',
           formData: { title: e.target.value }
         })} />
       <div className={ props.state.terminating ? 'hide' : '' }>
-        <button className="btn" onClick={props.createChild}>Save Node</button>
+        <button className="btn" onClick={props.actiond}>Save Node</button>
       </div>
       <div className={ props.state.terminating ? '' : 'hide' }>
         <textarea value={props.state.formData.payload} onChange={
           e => props.dispatch({ type: 'VALUE_CHANGE', formData: { payload: e.target.value }})}>
         </textarea>
-        <button className="btn" onClick={props.createChild}>Save Node</button>
+        <button className="btn" onClick={props.action}>Save Node</button>
       </div>
     </div>
   </>
