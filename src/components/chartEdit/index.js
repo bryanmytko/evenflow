@@ -3,7 +3,7 @@ import { useEffect, useReducer, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { ChartCreateForm,Logo } from '../';
-import { UserService } from '../../services';
+import { ObjectService, UserService } from '../../services';
 import { NewChildFormReducer } from '../../reducers';
 
 import './style.css';
@@ -13,6 +13,7 @@ const initialState = {
   terminating: false,
   parentId: '',
   formData: {
+    id: '',
     title: '',
     payload: ''
   }
@@ -32,32 +33,31 @@ const ChartEdit = () => {
     })
   }, [id]);
 
-  const updateChild = async () => {
-    const { title, payload } = state.formData;
-    const { parentId } = state;
-    const response = await UserService.createNode({ title, payload, parentId });
-    const childData = { title, payload, id: response.data.node._id };
+  const editChild = async () => {
+    const { id, title, payload } = state.formData;
+    const response = await UserService.updateNode({ id, title, payload });
+    const childData = { title, payload };
 
-    // ObjectService.insertChildNode([tree], parentId, childData);
+    const updatedTree = ObjectService.replaceChildNode([tree], id, childData);
+    setTree(updatedTree);
     dispatch({ type: 'HIDDEN' });
   };
 
   const toggleModal = (e, child) => {
-    console.log(child.title)
     setPosition({ x: e.pageX, y: e.pageY });
     dispatch({
       type: 'EDIT_CHILD',
       parentId: child.id,
-      formData: { title: child.title, payload: child.payload }
+      formData: { id: child._id, title: child.title, payload: child.payload }
     });
   }
 
   const showChildren = (child, index) => {
     return <li key={index}>
       <span>{child.title}
-        <button className={`btn ${child.payload ? 'hide' : ''}`}
+        <button className="btn material-icons"
           id={`button-${index}`}
-          onClick={(e) => toggleModal(e, child)}>+</button>
+          onClick={e => toggleModal(e, child)}>edit</button>
         <span className="payload">{child.payload}</span>
       </span>
       <ul>
@@ -68,13 +68,16 @@ const ChartEdit = () => {
 
   const viewTree = () => {
     return <>
-      <h5>{tree.title}</h5>
+      <h5>
+        {tree.title}
+        <button className="btn material-icons" onClick={e => toggleModal(e, tree)}>edit</button>
+      </h5>
       <ul className="wtree">
         {(tree.children || []).map((child, index) => showChildren(child, index))}
       </ul>
       <ChartCreateForm
         position={position}
-        action={updateChild}
+        action={editChild}
         dispatch={dispatch}
         state={state}
       />
