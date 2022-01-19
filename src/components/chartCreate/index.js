@@ -33,9 +33,9 @@ const ChartCreate = () => {
   };
 
   const createTreeRoot = async () => {
-    const response = await UserService.createNode({ title: tree.title });
+    const response = await UserService.createNode({ title: tree.title, payload: '' });
     const { node } = response.data;
-    const data = { title: tree.title, id: node._id, children: [] };
+    const data = { title: tree.title, id: node._id, payload: '', children: [] };
 
     setTree(data);
   };
