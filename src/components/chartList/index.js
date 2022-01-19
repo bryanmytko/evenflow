@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import UserService from '../../services/user.service';
 import AuthService from '../../services/auth.service';
@@ -8,7 +8,6 @@ import './style.css';
 
 const ChartList = () => {
   const [charts, setCharts] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if(AuthService.currentUser()) {
@@ -16,11 +15,11 @@ const ChartList = () => {
         setCharts(response.data.nodes);
       });
     }
-  }, []);
+  }, [charts]);
 
-  const deleteNode = async (n) => {
-    await UserService.deleteNode(n);
-    return navigate(0);
+  const deleteNode = async (node, index) => {
+    await UserService.deleteNode(node);
+    setCharts(charts.filter((_, i) => i !== index));
   };
 
   const showCharts = () => {
@@ -33,7 +32,7 @@ const ChartList = () => {
         </tr>
       </thead>
       <tbody>
-        {charts.map(n => <tr key={n._id}>
+        {charts.map((n, index) => <tr key={index}>
           <td>{n.title}</td>
           <td><Link to={`/chart/${n._id}`} className="btn">View Tree</Link></td>
           <td>
@@ -41,7 +40,8 @@ const ChartList = () => {
               edit
             </Link>
             &nbsp;
-            <button className="btn btn-new material-icons" name={n._id} onClick={e => deleteNode(e.target.name)}>
+            <button className="btn btn-new material-icons" name={n._id}
+              onClick={e => deleteNode(e.target.name, index)}>
               delete
             </button>
           </td>
