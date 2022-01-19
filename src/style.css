@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&family=PT+Sans:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-
 body, html {
   font-family: "Noto sans Display", "Helvetica", "Arial", sans-serif;
   margin: 0;
@@ -76,7 +75,7 @@ h5 {
 }
 
 textarea {
-  height: 20rem;
+  height: 8rem;
 }
 
 textarea,
