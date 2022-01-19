@@ -76,7 +76,7 @@ const ChartCreate = () => {
         {(tree.children || []).map((child, index) => showChildren(child, index))}
       </ul>
       <ChartCreateForm
-        createChild={createChild}
+        action={createChild}
         dispatch={dispatch}
         state={state}
         position={position}
