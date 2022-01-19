@@ -14,14 +14,11 @@ class ObjectService {
 
   replaceChildNode = (data, id, childNode) => {
     const iter = a => {
-      if (a._id === id) {
-        a = { ...a, ...childNode };
-        return a
-      }
-      if(a.children.length) return { ...a, children: a.children.map(iter) }; //.some(iter);
+      if (a._id === id) return { ...a, ...childNode };
+      return (a.children.length) ? { ...a, children: a.children.map(iter) } : a;
     };
 
-    return data.map(iter)[0];
+    return data.map(iter);
   }
 }
 

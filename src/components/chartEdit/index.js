@@ -35,11 +35,11 @@ const ChartEdit = () => {
 
   const editChild = async () => {
     const { id, title, payload } = state.formData;
-    const response = await UserService.updateNode({ id, title, payload });
+    await UserService.updateNode({ id, title, payload });
     const childData = { title, payload };
 
     const updatedTree = ObjectService.replaceChildNode([tree], id, childData);
-    setTree(updatedTree);
+    setTree(updatedTree[0]);
     dispatch({ type: 'HIDDEN' });
   };
 
