@@ -86,7 +86,7 @@ const ChartCreate = () => {
 
   return <div className="node-card">
     <Logo />
-    {showContent()}
+   {showContent()}
   </div>;
 };
 

@@ -15,7 +15,7 @@ const ChartList = () => {
         setCharts(response.data.nodes);
       });
     }
-  }, [charts]);
+  }, []);
 
   const deleteNode = async (node, index) => {
     await UserService.deleteNode(node);
