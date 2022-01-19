@@ -23,7 +23,7 @@ const ChartCreateForm = (props) => {
           formData: { title: e.target.value }
         })} />
       <div className={ props.state.terminating ? 'hide' : '' }>
-        <button className="btn" onClick={props.actiond}>Save Node</button>
+        <button className="btn" onClick={props.action}>Save Node</button>
       </div>
       <div className={ props.state.terminating ? '' : 'hide' }>
         <textarea value={props.state.formData.payload} onChange={
