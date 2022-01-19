@@ -2,6 +2,7 @@
   font-size: 2em;
 }
 
-a.btn.material-icons {
+.btn.material-icons {
   line-height: 1.5em;
+  padding: 0 7px;
 }
