@@ -10,11 +10,12 @@ const NewChildFormReducer = (state, action) => {
     case 'EDIT_CHILD':
       toggle = !state.hidden;
       const terminating = action.formData.payload === '' ? false : true;
+      const { id, title, payload } = action.formData;
       return { ...state,
         hidden: toggle,
         parentId: action.parentId,
         terminating,
-        formData: { title: action.formData.title, payload: action.formData.payload }
+        formData: { id, title, payload }
       };
     case 'TERMINATING':
       return { ...state, hidden: false, terminating: !state.terminating };
