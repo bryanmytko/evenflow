@@ -16,6 +16,17 @@ class UserService {
     return axios.get(`${BASE_URL}/api/node/children/${id}`, { headers: authHeader() });
   }
 
+  updateNode({ id, title, payload }) {
+    return axios.put(`${BASE_URL}/api/node/update/${id}`,
+      { title, payload },
+      { headers: authHeader() }
+    ).then(res => {
+      return res;
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
   deleteNode(id) {
     return axios.delete(`${BASE_URL}/api/node/delete/${id}`, { headers: authHeader() });
   }
