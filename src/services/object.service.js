@@ -18,7 +18,18 @@ class ObjectService {
       return (a.children.length) ? { ...a, children: a.children.map(iter) } : a;
     };
 
-    return data.map(iter);
+    return [data].map(iter)[0];
+  }
+
+  removeChildNode = (data, id) => {
+    const iter = a => {
+      if (a.children.length && a.children.some(c => c._id === id)){
+        return { ...a, children: a.children.filter(c => c._id !== id) }
+      }
+      return (a.children.length) ? { ...a, children: a.children.map(iter) } : a;
+    };
+
+    return [data].map(iter)[0];
   }
 }
 
