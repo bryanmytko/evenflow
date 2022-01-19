@@ -18,6 +18,10 @@
 h5 button,
 .wtree button {
   display: inline-block;
+  margin: 0 4px;
+}
+h5 button:first-child,
+.wtree button:first-child {
   margin-left: 1em;
 }
 
