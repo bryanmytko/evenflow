@@ -31,7 +31,7 @@ const Chart = () => {
        })}
      </ul>;
     }
-    return <p>{chart.payload}</p>;
+    return <p className="payload">{chart.payload}</p>;
   }
 
   return <div className="main-container container">

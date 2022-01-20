@@ -128,10 +128,10 @@ div#root {
   width: 100%;
 }
 
-/* .node-card ul {
-  margin: 0 auto;
-} */
-
 .node-card ul li a {
   font-size: 1em;
+}
+
+.payload {
+  white-space: pre-line;
 }
