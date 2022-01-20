@@ -4,13 +4,13 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 
 import App from './App';
-import { Chart, ChartCreate, ChartDelete, ChartEdit, Home, Login, Signup } from './components';
+import { Chart, ChartCreate, ChartEdit, Home, Login, Signup } from './components';
 import AuthService from './services/auth.service';
 
 import 'materialize-css/dist/css/materialize.min.css'
 import './style.css';
 
-const RequireAuth = ({children}) => {
+const RequireAuth = ({ children }) => {
   return AuthService.currentUser() ? children : <Navigate to="/login" />;
 }
 

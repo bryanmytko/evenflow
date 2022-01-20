@@ -8,7 +8,7 @@ class ObjectService {
       return Array.isArray(a.children) && a.children.some(iter);
     };
 
-    data.some(iter);
+    [data].some(iter);
     return data;
   }
 

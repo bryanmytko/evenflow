@@ -28,7 +28,7 @@ const ChartCreate = () => {
     const response = await UserService.createNode({ title, payload, parentId });
     const childData = { title, payload, id: response.data.node._id };
 
-    ObjectService.insertChildNode([tree], parentId, childData);
+    ObjectService.insertChildNode(tree, parentId, childData);
     dispatch({ type: 'HIDDEN' });
   };
 
