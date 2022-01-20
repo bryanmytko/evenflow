@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useReducer, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { ChartCreateForm,Logo } from '../';
+import { ChartCreateForm, Expandable, Logo } from '../';
 import { ObjectService, UserService } from '../../services';
 import { NewChildFormReducer } from '../../reducers';
 
@@ -67,7 +67,7 @@ const ChartEdit = () => {
           onClick={e => toggleModal(e, child)}>edit</button>
         <button className="btn btn-new material-icons"
           onClick={e => deleteNode(child)}>delete</button>
-        <span className="payload">{child.payload}</span>
+        <Expandable content={child.payload} />
       </span>
       <ul>
         {(child.children || []).map((child, index) => showChildren(child, index))}
