@@ -4,7 +4,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 
 import { Footer } from './components';
 
-ReactGA.initialize(process.env.REACT_APP_GA);
+ReactGA.initialize('UA-217723206-1');
 
 const usePageViews = () => {
   const location = useLocation();
