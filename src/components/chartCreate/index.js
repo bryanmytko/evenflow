@@ -1,7 +1,7 @@
 import React from 'react';
 import { useReducer, useState } from 'react';
 
-import { ChartCreateForm, Logo } from '../';
+import { ChartCreateForm, Expandable, Logo } from '../';
 import { UserService, ObjectService } from '../../services';
 import { NewChildFormReducer } from '../../reducers';
 
@@ -51,7 +51,7 @@ const ChartCreate = () => {
       <button className={`btn ${child.payload ? 'hide' : ''}`}
         id={`button-${index}`}
         onClick={(e) => toggleModal(e, child)}>+</button>
-        <span className="payload">{child.payload}</span>
+        <Expandable content={child.payload} />
       </span>
       <ul>
         {(child.children || []).map((child, index) => showChildren(child, index))}
