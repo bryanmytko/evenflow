@@ -8,7 +8,6 @@ const AnalyticsService = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(location.pathname + location.search);
     ReactGA.pageview(location.pathname + location.search);
   }, [location]);
 };
