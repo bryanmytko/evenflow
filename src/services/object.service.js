@@ -8,8 +8,7 @@ class ObjectService {
       return Array.isArray(a.children) && a.children.some(iter);
     };
 
-    [data].some(iter);
-    return data;
+    iter(data);
   }
 
   replaceChildNode = (data, id, childNode) => {
@@ -18,7 +17,7 @@ class ObjectService {
       return (a.children.length) ? { ...a, children: a.children.map(iter) } : a;
     };
 
-    return [data].map(iter)[0];
+    return iter(data);
   }
 
   removeChildNode = (data, id) => {
@@ -29,7 +28,7 @@ class ObjectService {
       return (a.children.length) ? { ...a, children: a.children.map(iter) } : a;
     };
 
-    return [data].map(iter)[0];
+    return iter(data);
   }
 }
 

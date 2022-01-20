@@ -20,7 +20,7 @@ const initialState = {
 };
 
 const ChartEdit = () => {
-  const [tree, setTree] = useState([]);
+  const [tree, setTree] = useState({});
   const [position, setPosition] = useState({ x: 0, y: 200 });
   const [state, dispatch] = useReducer(NewChildFormReducer, initialState);
 
