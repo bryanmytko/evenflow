@@ -1,22 +1,12 @@
 import React from 'react';
-import ReactGA from 'react-ga';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { Footer } from './components';
-
-ReactGA.initialize('UA-217723206-1');
-
-const usePageViews = () => {
-  const location = useLocation();
-
-  React.useEffect(() => {
-    ReactGA.set({ page: location.pathname });
-    ReactGA.pageview(location.pathname);
-  }, [location]);
-}
+import AnalyticsService from './services/analytics.service';
 
 const App = () => {
-  usePageViews();
+  AnalyticsService();
+
   return <>
     <main>
       <div className="main-container container">
