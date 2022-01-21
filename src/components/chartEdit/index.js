@@ -73,7 +73,7 @@ const ChartEdit = () => {
       type: 'EDIT_CHILD',
       parentId: node._id,
       formData: {
-        id: node._id,
+        _id: node._id,
         title: node.title,
         payload: node.payload
       }
