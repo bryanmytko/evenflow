@@ -1,9 +1,7 @@
 .payload {
-  line-height: 1em;
   white-space: pre-line;
   display: inline-block;
   padding: 0 0 0 12px;
-  vertical-align: middle;
   opacity: 0.7;
 }
 
