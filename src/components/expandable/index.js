@@ -12,17 +12,17 @@ const Expandable = props => {
   const truncateContent = content => {
     const limit = 60;
     if(content.length > limit && !expanded) {
-      return <>
+      return <p>
         {content.substring(0, limit)}
-        &nbsp; 
+        &nbsp;
         <Link to="/" onClick={e => expand(e)}>more...</Link>
-      </>;
+      </p>;
     } else if(content.length > limit) {
-      return <>
+      return <p>
         {content}
         <br /><br />
         <Link to="/" onClick={e => expand(e)}>hide</Link>
-      </>;
+      </p>;
     }
 
     return content;
@@ -33,7 +33,7 @@ const Expandable = props => {
     setExpanded(!expanded);
   }
 
-  return <p className="payload">{truncateContent(props.content)}</p>;
+  return <div className="payload">{truncateContent(props.content)}</div>;
 };
 
 export default Expandable;
