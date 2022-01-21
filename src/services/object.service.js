@@ -1,29 +1,35 @@
 class ObjectService {
-  insertChildNode = (data, id, childNode) => {
+  insertChildNode = (data, _id, childNode) => {
     const iter = a => {
-      if (a.id === id) {
-        a.children ? a.children.push(childNode) : a.children = [childNode];
-        return true;
+      if (a._id === _id) {
+        if(a.children && a.children.length){
+          a.children.push(childNode);
+          return a;
+        } else {
+          return { ...a, children: [childNode] };
+        }
       }
-      return Array.isArray(a.children) && a.children.some(iter);
+      return (a.children && a.children.length) ?
+             { ...a, children: a.children.map(iter) } :
+             a;
     };
 
-    iter(data);
+    return iter(data);
   }
 
-  replaceChildNode = (data, id, childNode) => {
+  replaceChildNode = (data, _id, childNode) => {
     const iter = a => {
-      if (a._id === id) return { ...a, ...childNode };
+      if (a._id === _id) return { ...a, ...childNode };
       return (a.children.length) ? { ...a, children: a.children.map(iter) } : a;
     };
 
     return iter(data);
   }
 
-  removeChildNode = (data, id) => {
+  removeChildNode = (data, _id) => {
     const iter = a => {
-      if (a.children.length && a.children.some(c => c._id === id)){
-        return { ...a, children: a.children.filter(c => c._id !== id) }
+      if (a.children.length && a.children.some(c => c._id === _id)){
+        return { ...a, children: a.children.filter(c => c._id !== _id) }
       }
       return (a.children.length) ? { ...a, children: a.children.map(iter) } : a;
     };
