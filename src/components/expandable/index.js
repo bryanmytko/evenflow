@@ -10,7 +10,7 @@ const Expandable = props => {
   }, [expanded]);
 
   const truncateContent = content => {
-    const limit = 60;
+    const limit = 30;
     if(content.length > limit && !expanded) {
       return <p>
         {content.substring(0, limit)}

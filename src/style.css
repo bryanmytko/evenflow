@@ -131,8 +131,3 @@ div#root {
 .node-card ul li a {
   font-size: 1em;
 }
-
-.payload {
-  line-height: 1em;
-  white-space: pre-line;
-}
