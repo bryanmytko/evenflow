@@ -13,7 +13,7 @@ const initialState = {
   terminating: false,
   parentId: '',
   formData: {
-    id: '',
+    _id: '',
     title: '',
     payload: ''
   }
@@ -33,12 +33,21 @@ const ChartEdit = () => {
     })
   }, [id]);
 
-  const editChild = async () => {
-    const { id, title, payload } = state.formData;
-    await UserService.updateNode({ id, title, payload });
-    const childData = { title, payload };
+  const putChild = async () => {
+    const { _id, title, payload } = state.formData;
+    const { parentId } = state;
+    let updatedTree;
 
-    const updatedTree = ObjectService.replaceChildNode(tree, id, childData);
+    if(_id){
+      await UserService.updateNode({ id: _id, title, payload });
+      const childData = { title, payload };
+      updatedTree = ObjectService.replaceChildNode(tree, _id, childData);
+    } else {
+      const response = await UserService.createNode({ title, payload, parentId });
+      const childData = { title, payload, _id: response.data.node._id };
+      updatedTree = ObjectService.insertChildNode(tree, parentId, childData);
+    }
+
     setTree(updatedTree);
     dispatch({ type: 'HIDDEN' });
   };
@@ -50,52 +59,67 @@ const ChartEdit = () => {
     setTree(updatedTree);
   };
 
-  const toggleModal = (e, child) => {
+  const toggleCreateModal = (e, node) => {
+    setPosition({ x: e.pageX, y: e.pageY });
+    dispatch({
+      type: 'NEW_CHILD',
+      parentId: node._id
+    });
+  }
+
+  const toggleEditModal = (e, node) => {
     setPosition({ x: e.pageX, y: e.pageY });
     dispatch({
       type: 'EDIT_CHILD',
-      parentId: child.id,
-      formData: { id: child._id, title: child.title, payload: child.payload }
+      parentId: node._id,
+      formData: {
+        id: node._id,
+        title: node.title,
+        payload: node.payload
+      }
     });
   }
 
   const showChildren = (child, index) => {
     return <li key={index}>
-      <span>{child.title}
+      <span>
+        <div className="node-title">{child.title}</div>
+        <button className={`btn material-icons ${child.payload ? 'hide' : ''}`}
+          id={`button-${index}`}
+          onClick={(e) => toggleCreateModal(e, child)}>add</button>
         <button className="btn material-icons"
           id={`button-${index}`}
-          onClick={e => toggleModal(e, child)}>edit</button>
+          onClick={e => toggleEditModal(e, child)}>edit</button>
         <button className="btn btn-new material-icons"
           onClick={e => deleteNode(child)}>delete</button>
         <Expandable content={child.payload} />
       </span>
       <ul>
-        {(child.children || []).map((child, index) => showChildren(child, index))}
+        {(child.children || [])
+          .map((child, index) => showChildren(child, index))}
       </ul>
     </li>;
   };
 
-  const viewTree = () => {
-    return <>
-      <h5>
-        {tree.title}
-        <button className="btn material-icons" onClick={e => toggleModal(e, tree)}>edit</button>
-      </h5>
-      <ul className="wtree">
-        {(tree.children || []).map((child, index) => showChildren(child, index))}
-      </ul>
-      <ChartCreateForm
-        position={position}
-        action={editChild}
-        dispatch={dispatch}
-        state={state}
-      />
-    </>;
-  }
-
   return <div className="node-card">
     <Logo />
-    {viewTree()}
+    <h5>
+      <div className="node-title">{tree.title}</div>
+      <button className="btn material-icons"
+        onClick={e => toggleCreateModal(e, tree)}>add</button>
+      <button className="btn material-icons"
+        onClick={e => toggleEditModal(e, tree)}>edit</button>
+    </h5>
+    <ul className="wtree">
+      {(tree.children || [])
+        .map((child, index) => showChildren(child, index))}
+    </ul>
+    <ChartCreateForm
+      position={position}
+      dispatch={dispatch}
+      state={state}
+      action={putChild}
+    />
   </div>;
 };
 

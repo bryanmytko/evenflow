@@ -1,3 +1,7 @@
+.payload {
+  overflow: hidden;
+}
+
 .payload a {
   color: #00acc1;
 }
