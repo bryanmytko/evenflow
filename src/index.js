@@ -25,7 +25,7 @@ ReactDOM.render(
         <Route path="chart">
           <Route path="create" element={<RequireAuth><ChartCreate /></RequireAuth>} />
           <Route path="edit/:id" element={<RequireAuth><ChartEdit /></RequireAuth>} />
-          <Route path=":id" element={<Chart />} />
+          <Route path=":slug" element={<Chart />} />
         </Route>
         <Route path="*" element={<h1>404</h1>} />
       </Route>

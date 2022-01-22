@@ -1,32 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-// import DOMPurify from 'dompurify';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { Logo } from '../';
-import AuthService from '../../services/auth.service';
 import UserService from '../../services/user.service';
 
 const Chart = () => {
   const [chart, setChart] = useState([]);
   const [children, setChildren] = useState([]);
   const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if(AuthService.currentUser()) {
-      UserService.getNode(params.id)
-        .then(response => {
-          setChart(response.data.node);
-          setChildren(response.data.node.children);
-        });
-    }
-  }, [params.id]);
+    (async () => {
+      const response = await UserService.getNodeSlug(params.slug);
+      setChart(response.data.node);
+      setChildren(response.data.node.children);
+    })();
+  }, [params.id, navigate]);
 
   const content = () => {
     if(children.length){
      return <ul>
        {children.map(c => {
          return <li key={c._id}>
-           <Link className="btn btn-large" to={`/chart/${c._id}`}>{c.title}</Link>
+           <Link className="btn btn-large" to={`/chart/${c.slug}`}>{c.title}</Link>
          </li>
        })}
      </ul>;

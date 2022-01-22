@@ -12,6 +12,10 @@ class UserService {
     return axios.get(`${BASE_URL}/api/node/${id}`, { headers: authHeader() });
   }
 
+  getNodeSlug(slug) {
+    return axios.get(`${BASE_URL}/api/node/slug/${slug}`, { headers: authHeader() });
+  }
+
   getNodeChildren(id) {
     return axios.get(`${BASE_URL}/api/node/children/${id}`, { headers: authHeader() });
   }

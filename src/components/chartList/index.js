@@ -8,6 +8,7 @@ import './style.css';
 
 const ChartList = () => {
   const [charts, setCharts] = useState([]);
+  // const alert = useAlert();
 
   useEffect(() => {
     if(AuthService.currentUser()) {
@@ -22,19 +23,35 @@ const ChartList = () => {
     setCharts(charts.filter((_, i) => i !== index));
   };
 
+  const copyToClipboard = e => {
+    e.preventDefault();
+    const uri = `${window.location.href}chart/${e.target.name}`;
+    navigator.clipboard.writeText(uri);
+  };
+
   const showCharts = () => {
     return <table>
       <thead>
         <tr>
           <th>Name</th>
           <th>View</th>
+          <th>Share</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         {charts.map((n, index) => <tr key={index}>
           <td>{n.title}</td>
-          <td><Link to={`/chart/${n._id}`} className="btn">View Tree</Link></td>
+          <td><Link to={`/chart/${n.slug}`} className="btn">View Tree</Link></td>
+          <td>
+            <Link
+              to="/"
+              onClick={e => copyToClipboard(e)}
+              name={n.slug}
+              className="btn green darken-3">
+              copy link
+            </Link>
+          </td>
           <td>
             <Link to={`/chart/edit/${n._id}`} className="btn material-icons">
               edit
