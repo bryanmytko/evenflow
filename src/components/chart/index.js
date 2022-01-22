@@ -13,10 +13,11 @@ const Chart = () => {
   useEffect(() => {
     (async () => {
       const response = await UserService.getNodeSlug(params.slug);
+      if(Object.keys(response.data).length === 0) return navigate('/login');
       setChart(response.data.node);
       setChildren(response.data.node.children);
     })();
-  }, [params.id, navigate]);
+  }, [params.slug, navigate]);
 
   const content = () => {
     if(children.length){
