@@ -8,7 +8,7 @@ import './style.css';
 
 const ChartList = () => {
   const [charts, setCharts] = useState([]);
-  // const alert = useAlert();
+  const [privateChanged, setPrivateChanged] = useState(false);
 
   useEffect(() => {
     if(AuthService.currentUser()) {
@@ -16,11 +16,17 @@ const ChartList = () => {
         setCharts(response.data.nodes);
       });
     }
-  }, []);
+  }, [privateChanged]);
 
   const deleteNode = async (node, index) => {
     await UserService.deleteNode(node);
     setCharts(charts.filter((_, i) => i !== index));
+  };
+
+  const markPrivate = async e => {
+    setPrivateChanged(e.target.value);
+    const response = await UserService.updatePrivate(e.target.id);
+    setPrivateChanged(response.data.node.private);
   };
 
   const copyToClipboard = e => {
@@ -37,6 +43,7 @@ const ChartList = () => {
           <th>View</th>
           <th>Share</th>
           <th>Actions</th>
+          <th>Private?</th>
         </tr>
       </thead>
       <tbody>
@@ -48,7 +55,7 @@ const ChartList = () => {
               to="/"
               onClick={e => copyToClipboard(e)}
               name={n.slug}
-              className="btn green darken-3">
+              className="btn">
               copy link
             </Link>
           </td>
@@ -61,6 +68,19 @@ const ChartList = () => {
               onClick={e => deleteNode(e.target.name, index)}>
               delete
             </button>
+          </td>
+          <td>
+            <label>
+              <input
+                className="white"
+                type="checkbox"
+                checked={!!n.private}
+                value={n.private}
+                id={n._id}
+                onChange={e => markPrivate(e)}
+              />
+              <span></span>
+            </label>
           </td>
         </tr>)}
       </tbody>
