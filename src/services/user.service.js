@@ -20,6 +20,17 @@ class UserService {
     return axios.get(`${BASE_URL}/api/node/children/${id}`, { headers: authHeader() });
   }
 
+  updatePrivate(id) {
+    return axios.put(`${BASE_URL}/api/node/private/${id}`,
+      {},
+      { headers: authHeader() }
+    ).then(res => {
+      return res;
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
   updateNode({ id, title, payload }) {
     return axios.put(`${BASE_URL}/api/node/update/${id}`,
       { title, payload },
