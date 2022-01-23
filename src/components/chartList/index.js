@@ -8,12 +8,16 @@ import './style.css';
 
 const ChartList = () => {
   const [charts, setCharts] = useState([]);
+  const [message, setMessage] = useState('It seems you haven\'t created any charts yet.');
   const [privateChanged, setPrivateChanged] = useState(false);
 
   useEffect(() => {
     if(AuthService.currentUser()) {
       UserService.getNodes().then(response => {
         setCharts(response.data.nodes);
+      }).catch(err => {
+        setCharts({});
+        setMessage('Something went wrong. Could not load data.');
       });
     }
   }, [privateChanged]);
@@ -88,7 +92,7 @@ const ChartList = () => {
   };
 
   return <>
-    { charts.length ? showCharts() : <em>You don't seem to have any charts yet.</em> }
+    { charts.length ? showCharts() : <em>{message}</em> }
   </>;
 };
 
