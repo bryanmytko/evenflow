@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { ChartList, Logo } from '../';
-import AuthService from '../../services/auth.service';
+import { AuthService } from '../../services';
 
 import './style.css';
 
