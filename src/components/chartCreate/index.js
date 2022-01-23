@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Logo } from '../';
-import { UserService } from '../../services';
+import { AuthService, UserService } from '../../services';
 
 import './style.css';
 
@@ -12,6 +12,11 @@ const ChartCreate = () => {
 
   const createTreeRoot = async () => {
     const response = await UserService.createNode({ title, payload: '' });
+    if(!response) {
+      AuthService.logout();
+      navigate('/login');
+    }
+
     const { node } = response.data;
     navigate(`/chart/edit/${node._id}`);
   };
