@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 
 import App from './App';
 import { Chart, ChartCreate, ChartEdit, Home, Login, Signup } from './components';
-import AuthService from './services/auth.service';
+import { AuthService } from './services';
 
 import 'materialize-css/dist/css/materialize.min.css'
 import './style.css';
