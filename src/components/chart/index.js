@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { Logo } from '../';
-import UserService from '../../services/user.service';
+import { AuthService, UserService } from '../../services';
 
 const Chart = () => {
   const [chart, setChart] = useState([]);
