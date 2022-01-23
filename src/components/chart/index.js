@@ -14,6 +14,7 @@ const Chart = () => {
     (async () => {
       const response = await UserService.getNodeSlug(params.slug);
       if(Object.keys(response.data).length === 0) return navigate('/login');
+      if(!AuthService.currentUser() && response.data.node.private) return navigate('/login');
       setChart(response.data.node);
       setChildren(response.data.node.children);
     })();
