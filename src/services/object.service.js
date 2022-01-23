@@ -20,7 +20,7 @@ class ObjectService {
   replaceChildNode = (data, _id, childNode) => {
     const iter = a => {
       if (a._id === _id) return { ...a, ...childNode };
-      return (a.children.length) ? { ...a, children: a.children.map(iter) } : a;
+      return (a.children && a.children.length) ? { ...a, children: a.children.map(iter) } : a;
     };
 
     return iter(data);
