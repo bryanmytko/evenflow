@@ -1,4 +1,5 @@
 import axios from 'axios';
+import React from 'react';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -21,7 +22,7 @@ class AuthService {
       localStorage.setItem('token', JSON.stringify(response.data.token));
       return response;
     } catch(err) {
-      console.log('Error:', err);
+      return { error: err };
     }
   }
 
