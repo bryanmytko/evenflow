@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
 import { Error, Logo } from '../';
-import AuthService from '../../services/auth.service';
+import { AuthService, ValidationService } from '../../services';
 
 import './style.css';
 
@@ -15,8 +15,15 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const validEmail = ValidationService.email(email);
+    const validPassword = ValidationService.password(password);
+
+    if(!validEmail.valid) return setError(validEmail.msg);
+    if(!validPassword.valid) return setError(validPassword.msg);
+
     const response = await AuthService.signup(email, password);
     if(response.error) return setError(response.error);
+
     return navigate('/', { replace: true });
   };
 
@@ -29,10 +36,12 @@ const Signup = () => {
             <Error error={error} />
             <form className="login" onSubmit={handleSubmit}>
             <div className="field">
-              <label>Your Email:</label><input type="text" value={email} onChange={e => setEmail(e.target.value)} />
+              <label>Your Email:</label>
+              <input type="text" value={email} onChange={e => setEmail(e.target.value)} />
             </div>
             <div className="field">
-              <label>Enter a Password:</label><input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+              <label>Enter a Password:</label>
+              <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
             </div>
             <div className="actions">
               <div className="card-action right-align">
