@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Error } from '../';
+
 import './style.css';
 
 const ChartCreateForm = (props) => {
@@ -7,6 +9,7 @@ const ChartCreateForm = (props) => {
     <div
       style={{ left: props.position.x, top: props.position.y }}
       className={`chart-create-form card ${(props.state.hidden ? 'hide' : '')}`}>
+      <Error error={props.error} />
       <label>
         <input type="checkbox"
           className="white"

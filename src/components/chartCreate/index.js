@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Logo } from '../';
-import { AuthService, UserService } from '../../services';
+import { Error, Logo } from '../';
+import { AuthService, UserService, ValidationService } from '../../services';
 
 import './style.css';
 
 const ChartCreate = () => {
   const [title, setTitle] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const createTreeRoot = async () => {
+    const validTitle = ValidationService.blank(title);
+    if(!validTitle.valid) return setError(validTitle.msg);
+
     const response = await UserService.createNode({ title, payload: '' });
+
     if(!response) {
       AuthService.logout();
       navigate('/login');
@@ -24,6 +29,7 @@ const ChartCreate = () => {
   return <div className="node-card">
     <Logo />
     <div className="chart-create-form card chart-create-initialize">
+      <Error error={error} />
       <label>Chart Name:</label>
       <input value={title} onChange={e => setTitle(e.target.value)} />
       <button className="btn" onClick={createTreeRoot}>Save</button>
