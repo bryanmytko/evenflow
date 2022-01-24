@@ -42,8 +42,9 @@ class AuthService {
 
       localStorage.setItem('token', JSON.stringify(response.data.token));
       return response;
-    } catch(err) {
-      console.log('Error signing up.');
+    } catch(error) {
+      if(error.response.data.error.keyValue.email) return { error: 'Email already exists!' };
+      return { error: 'Something went wrong.' };
     }
   }
 }

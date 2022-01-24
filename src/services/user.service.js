@@ -27,7 +27,7 @@ class UserService {
     ).then(res => {
       return res;
     }).catch(err => {
-      console.log(err);
+      return err;
     });
   }
 
@@ -38,7 +38,7 @@ class UserService {
     ).then(res => {
       return res;
     }).catch(err => {
-      console.log(err);
+      return err;
     });
   }
 
@@ -53,7 +53,7 @@ class UserService {
     ).then(res => {
       return res;
     }).catch(err => {
-      console.error(err);
+      return err;
     });
   }
 }
