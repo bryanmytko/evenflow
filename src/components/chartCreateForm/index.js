@@ -5,12 +5,13 @@ import { Error } from '../';
 import './style.css';
 
 const ChartCreateForm = (props) => {
+  const { formData, hasChildren } = props.state;
   return <>
     <div
       style={{ left: props.position.x, top: props.position.y }}
-      className={`chart-create-form card ${(props.state.hidden ? 'hide' : '')}`}>
+      className={`chart-create-form card ${props.state.hidden ? 'hide' : '' }`}>
       <Error error={props.error} />
-      <label>
+      <label className={(formData._id && hasChildren) ? 'hide' : '' }>
         <input type="checkbox"
           className="white"
           checked={!!props.state.terminating}
