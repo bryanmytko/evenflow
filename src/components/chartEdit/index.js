@@ -15,7 +15,8 @@ const initialState = {
   formData: {
     _id: '',
     title: '',
-    payload: ''
+    payload: '',
+    hasChildren: false
   }
 };
 
@@ -77,10 +78,11 @@ const ChartEdit = () => {
     dispatch({
       type: 'EDIT_CHILD',
       parentId: node._id,
+      hasChildren: (node.children && node.children.length) ? true : false,
       formData: {
         _id: node._id,
         title: node.title,
-        payload: node.payload
+        payload: node.payload,
       }
     });
   }
