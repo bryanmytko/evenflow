@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
-import { Logo } from '../';
+import { Error, Logo } from '../';
 import AuthService from '../../services/auth.service';
 
 import './style.css';
@@ -9,13 +9,14 @@ import './style.css';
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    /* @TODO need a way to do error handling */
-    await AuthService.signup(email, password);
+    const response = await AuthService.signup(email, password);
+    if(response.error) return setError(response.error);
     return navigate('/', { replace: true });
   };
 
@@ -25,6 +26,7 @@ const Signup = () => {
         <Logo />
         <div className="card-panel signup-panel">
           <div className="row no-margin-bottom">
+            <Error error={error} />
             <form className="login" onSubmit={handleSubmit}>
             <div className="field">
               <label>Your Email:</label><input type="text" value={email} onChange={e => setEmail(e.target.value)} />
