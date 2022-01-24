@@ -3,7 +3,7 @@ import { useEffect, useReducer, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { ChartCreateForm, Expandable, Logo } from '../';
-import { ObjectService, UserService } from '../../services';
+import { ObjectService, UserService, ValidationService } from '../../services';
 import { NewChildFormReducer } from '../../reducers';
 
 import './style.css';
@@ -22,6 +22,7 @@ const initialState = {
 const ChartEdit = () => {
   const [tree, setTree] = useState({});
   const [position, setPosition] = useState({ x: 0, y: 200 });
+  const [error, setError] = useState('');
   const [state, dispatch] = useReducer(NewChildFormReducer, initialState);
 
   const params = useParams();
@@ -36,7 +37,10 @@ const ChartEdit = () => {
   const putChild = async () => {
     const { _id, title, payload } = state.formData;
     const { parentId } = state;
+    const validTitle = ValidationService.blank(state.formData.title);
     let updatedTree;
+
+    if(!validTitle.valid) return setError(validTitle.msg);
 
     if(_id){
       await UserService.updateNode({ id: _id, title, payload });
@@ -48,6 +52,7 @@ const ChartEdit = () => {
       updatedTree = ObjectService.insertChildNode(tree, parentId, childData);
     }
 
+    setError('');
     setTree(updatedTree);
     dispatch({ type: 'HIDDEN' });
   };
@@ -119,6 +124,7 @@ const ChartEdit = () => {
       dispatch={dispatch}
       state={state}
       action={putChild}
+      error={error}
     />
   </div>;
 };
