@@ -21,6 +21,15 @@ const Chart = () => {
     })();
   }, [params.slug, navigate]);
 
+  useEffect(() => {
+    setBreadcrumbs(JSON.parse(window.localStorage.getItem('breadcrumbs')));
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('breadcrumbs', JSON.stringify(breadcrumbs));
+  }, [breadcrumbs]);
+
+
   const follow = (next, current) => {
     const newBreadcrumb = { title: current.title, slug: current.slug };
     setBreadcrumbs([...breadcrumbs, newBreadcrumb]);
@@ -38,7 +47,7 @@ const Chart = () => {
      return <ul>
        {children.map(c => {
          return <li key={c._id}>
-           <button className="btn btn-large" onClick={() => follow(c, chart)}>{c.title}</button>
+           <button className="btn" onClick={() => follow(c, chart)}>{c.title}</button>
          </li>
        })}
      </ul>;
