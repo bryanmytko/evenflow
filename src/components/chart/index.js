@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { Logo } from '../';
+import { Breadcrumbs, Logo } from '../';
 import { AuthService, UserService } from '../../services';
 
 const Chart = () => {
   const [chart, setChart] = useState([]);
   const [children, setChildren] = useState([]);
+  const [breadcrumbs, setBreadcrumbs] = useState([]);
   const params = useParams();
   const navigate = useNavigate();
 
@@ -20,12 +21,24 @@ const Chart = () => {
     })();
   }, [params.slug, navigate]);
 
+  const follow = (next, current) => {
+    const newBreadcrumb = { title: current.title, slug: current.slug };
+    setBreadcrumbs([...breadcrumbs, newBreadcrumb]);
+    return navigate(`/chart/${next.slug}`, { state: breadcrumbs });
+  };
+
+  const goBack = current => {
+    const len = breadcrumbs.indexOf(current);
+    setBreadcrumbs([...breadcrumbs.slice(0, len)]);
+    return navigate(`/chart/${current.slug}`, { state: breadcrumbs });
+  }
+
   const content = () => {
     if(children.length){
      return <ul>
        {children.map(c => {
          return <li key={c._id}>
-           <Link className="btn btn-large" to={`/chart/${c.slug}`}>{c.title}</Link>
+           <button className="btn btn-large" onClick={() => follow(c, chart)}>{c.title}</button>
          </li>
        })}
      </ul>;
@@ -38,6 +51,7 @@ const Chart = () => {
      <Logo />
       <h5>{chart.title}</h5>
       <hr />
+      <Breadcrumbs breadcrumbs={breadcrumbs} goBack={goBack} />
       {content()}
     </div>
   </div>
