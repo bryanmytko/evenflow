@@ -12,6 +12,8 @@ const ChartList = () => {
   const [privateChanged, setPrivateChanged] = useState(false);
 
   useEffect(() => {
+    window.localStorage.setItem('breadcrumbs', JSON.stringify([]));
+
     if(AuthService.currentUser()) {
       UserService.getNodes().then(response => {
         setCharts(response.data.nodes);
@@ -53,7 +55,11 @@ const ChartList = () => {
       <tbody>
         {charts.map((n, index) => <tr key={index}>
           <td>{n.title}</td>
-          <td><Link to={`/chart/${n.slug}`} className="btn">View Tree</Link></td>
+          <td>
+            <Link to={`/chart/${n.slug}`} className="btn">
+              View Tree
+            </Link>
+          </td>
           <td>
             <Link
               to="/"
