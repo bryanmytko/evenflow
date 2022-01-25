@@ -1,3 +1,4 @@
+export { default as Breadcrumbs } from './breadcrumbs';
 export { default as Chart } from './chart';
 export { default as ChartCreate } from './chartCreate';
 export { default as ChartCreateForm } from './chartCreateForm';
