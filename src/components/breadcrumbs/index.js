@@ -8,9 +8,7 @@ const Breadcrumbs = (props) => {
       { props.breadcrumbs.map((breadcrumb, i) => {
         return <li key={i}>
           <button onClick={
-            () => props.follow({
-              ...breadcrumb,
-              direction: 'backward' })}>
+            () => props.goBack(breadcrumb)}>
             {breadcrumb.title}
           </button>
         </li>;
