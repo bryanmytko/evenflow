@@ -22,7 +22,7 @@ const Chart = () => {
   }, [params.slug, navigate]);
 
   useEffect(() => {
-    setBreadcrumbs(JSON.parse(window.localStorage.getItem('breadcrumbs')));
+    setBreadcrumbs(JSON.parse(window.localStorage.getItem('breadcrumbs')) || []);
   }, []);
 
   useEffect(() => {

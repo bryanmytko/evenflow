@@ -5,7 +5,7 @@ import './style.css';
 const Breadcrumbs = (props) => {
   return <div className="breadcrumbs">
     <ul>
-      { props.breadcrumbs.map((breadcrumb, i) => {
+      { (props.breadcrumbs || []).map((breadcrumb, i) => {
         return <li key={i}>
           <button onClick={
             () => props.goBack(breadcrumb)}>
