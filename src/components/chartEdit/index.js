@@ -31,7 +31,7 @@ const ChartEdit = () => {
 
   useEffect(() => {
     UserService.getNodeChildren(id).then(response => {
-      setTree(response.data.nodes);
+      setTree(response.data.node);
     })
   }, [id]);
 
