@@ -15,15 +15,14 @@ const ChartCreate = () => {
     const validTitle = ValidationService.blank(title);
     if(!validTitle.valid) return setError(validTitle.msg);
 
-    const response = await UserService.createNode({ title, payload: '' });
+    try {
+      const response = await UserService.createNode({ title, payload: '' });
+      const { node } = response.data;
 
-    if(!response) {
+      navigate(`/chart/edit/${node._id}`);
+    } catch(err) {
       AuthService.logout();
-      navigate('/login');
     }
-
-    const { node } = response.data;
-    navigate(`/chart/edit/${node._id}`);
   };
 
   return <div className="node-card">

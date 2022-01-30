@@ -5,7 +5,10 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 class AuthService {
   currentUser() {
     const token = localStorage.getItem('token');
-    return token ? true : false;
+    if(!token) return false;
+    const { exp } = JSON.parse(atob(token.split('.')[1]));
+
+    return (exp * 1000 < Date.now()) ? false : true;
   }
 
   async login(email, password) {
