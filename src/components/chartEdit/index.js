@@ -59,10 +59,14 @@ const ChartEdit = () => {
   };
 
   const deleteNode = async child => {
-    await UserService.deleteNode(child._id);
+    const confirm = window.confirm('Are you sure you want to delete?');
 
-    const updatedTree = ObjectService.removeChildNode(tree, child._id);
-    setTree(updatedTree);
+    if(confirm) {
+      await UserService.deleteNode(child._id);
+
+      const updatedTree = ObjectService.removeChildNode(tree, child._id);
+      setTree(updatedTree);
+    }
   };
 
   const toggleCreateModal = (e, node) => {
