@@ -1,4 +1,6 @@
 editor {
     border: '1px solid gray';
     min-height: '6em';
+    background-color: #fff !important;
+    border-radius: 4px !important;
 }
