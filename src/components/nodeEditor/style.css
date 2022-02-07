@@ -1,6 +1,16 @@
-editor {
-    border: '1px solid gray';
-    min-height: '6em';
+.editor {
+    border: 1px solid gray;
+    min-height: 6em;
     background-color: #fff !important;
     border-radius: 4px !important;
+}
+
+.editorTextarea { 
+    border: 1px solid black;
+    min-height: 6em;
+    margin-bottom: 8px;
+    cursor: text;
+    background-color: white;
+    padding: 8px;
+    border-radius: 4px;
 }
