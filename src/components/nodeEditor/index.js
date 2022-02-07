@@ -1,18 +1,26 @@
 import React, { useRef, useState } from 'react';
-import { Editor, EditorState, RichUtils } from 'draft-js';
+import { Editor, EditorState, RichUtils, convertFromRaw, convertToRaw } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 
 import './style.css';
 
-const NodeEditor = () => {
+const NodeEditor = (props) => {
   const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
+  // convertFromRaw(props.value)
+  //  EditorState.createWithContent()
+   EditorState.createEmpty()
   );
 
   const editor = useRef(null);
 
-  function focusEditor() {
+  const focusEditor = () => {
     editor.current.focus();
+  }
+
+  const handleChange = () => {
+    //convertToRaw(editorState)
+    
+    setEditorState(editorState);
   }
 
   const handleKeyCommand = (command, editorState) => {
@@ -26,20 +34,24 @@ const NodeEditor = () => {
     return 'not-handled';
   }
 
-  const onBoldClick = () => setEditorState(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
+  const handleOnChange = (editorState) => {
+    setEditorState(editorState);
+    props.dispatch({ type: 'VALUE_CHANGE', formData: { payload: editorState.getCurrentContent() }});
+    //  ContentState(4) ?? i think we need raw conversion here
+  }
+
+  // const onBoldClick = () => setEditorState(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
 
   return (
-    <div
-      style={{ border: "1px solid black", minHeight: "6em", cursor: "text", backgroundColor: "white" }}
-      onClick={focusEditor}
-    >
+    <div className="editorTextarea" onClick={focusEditor}>
       {/* <button onClick={onBoldClick}>Bold</button> */}
       <Editor
         ref={editor}
         editorState={editorState}
-        onChange={setEditorState}
+       // onChange={setEditorState}
+        onChange={handleOnChange}
         handleKeyCommand={handleKeyCommand}
-        placeholder="Write something!"
+        placeholder={'Type something...'}
       />
     </div>
   );
