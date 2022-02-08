@@ -30,7 +30,7 @@ const ChartCreateForm = (props) => {
         <button className="btn" onClick={props.action}>Save Node</button>
       </div>
       <div className={ props.state.terminating ? '' : 'hide' }>
-        <NodeEditor dispatch={props.dispatch} value={props.state.formData.payload} />
+        <NodeEditor dispatch={props.dispatch} state={props.state} />
         <button className="btn" onClick={props.action}>Save Node</button>
       </div>
     </div>

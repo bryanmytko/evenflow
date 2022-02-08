@@ -1,15 +1,23 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Editor, EditorState, RichUtils, convertFromRaw, convertToRaw } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 
 import './style.css';
 
 const NodeEditor = (props) => {
-  const [editorState, setEditorState] = useState(() =>
-  // convertFromRaw(props.value)
-  //  EditorState.createWithContent()
-   EditorState.createEmpty()
-  );
+  const [editorState, setEditorState] = useState(() => {
+    console.log('Props value:', props.state.formData.payload)
+    if(false && props.state) {
+      const contentState = convertFromRaw(JSON.parse(props.state.formData.payload));
+      return EditorState.createWithContent(contentState);
+    }
+   
+    return EditorState.createEmpty();
+  });
+
+  useEffect(() => {
+    if(props.state.formData.payload === '') setEditorState(EditorState.createEmpty())
+  }, [props.state.formData])
 
   const editor = useRef(null);
 
@@ -30,7 +38,7 @@ const NodeEditor = (props) => {
 
   const handleOnChange = (editorState) => {
     setEditorState(editorState);
-    
+
     props.dispatch({ type: 'VALUE_CHANGE', formData: {
       payload: JSON.stringify(convertToRaw(editorState.getCurrentContent())) }
     });

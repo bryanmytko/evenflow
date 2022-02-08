@@ -28,6 +28,7 @@ const NewChildFormReducer = (state, action) => {
       toggle = !state.hidden;
       const terminating = action.formData.payload === '' ? false : true;
       const { _id, payload, title } = action.formData;
+      console.log("Editin child.")
       return {
         ...state,
         hasChildren: action.hasChildren,
