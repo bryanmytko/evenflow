@@ -5,19 +5,17 @@ import 'draft-js/dist/Draft.css';
 import './style.css';
 
 const NodeEditor = (props) => {
-  const [editorState, setEditorState] = useState(() => {
-    console.log('Props value:', props.state.formData.payload)
-    if(false && props.state) {
-      const contentState = convertFromRaw(JSON.parse(props.state.formData.payload));
-      return EditorState.createWithContent(contentState);
-    }
-   
-    return EditorState.createEmpty();
-  });
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
   useEffect(() => {
-    if(props.state.formData.payload === '') setEditorState(EditorState.createEmpty())
-  }, [props.state.formData])
+    /* @TODO need a check for old data that was just a string */
+    if(props.state.formData.payload){
+      const content = props.state.formData.payload;
+      props.state.hidden ?
+      setEditorState(EditorState.createEmpty()) :
+      setEditorState(EditorState.createWithContent(convertFromRaw(JSON.parse(content))));
+    }
+  }, [props.state.hidden])
 
   const editor = useRef(null);
 
@@ -51,7 +49,7 @@ const NodeEditor = (props) => {
         editorState={editorState}
         onChange={handleOnChange}
         handleKeyCommand={handleKeyCommand}
-        placeholder={'Type something...'}
+        value={props.state.formData.payload}
       />
     </div>
   );
