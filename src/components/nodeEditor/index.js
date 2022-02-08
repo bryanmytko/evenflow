@@ -17,12 +17,6 @@ const NodeEditor = (props) => {
     editor.current.focus();
   }
 
-  const handleChange = () => {
-    //convertToRaw(editorState)
-    
-    setEditorState(editorState);
-  }
-
   const handleKeyCommand = (command, editorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
 
@@ -36,19 +30,17 @@ const NodeEditor = (props) => {
 
   const handleOnChange = (editorState) => {
     setEditorState(editorState);
-    props.dispatch({ type: 'VALUE_CHANGE', formData: { payload: editorState.getCurrentContent() }});
-    //  ContentState(4) ?? i think we need raw conversion here
+    
+    props.dispatch({ type: 'VALUE_CHANGE', formData: {
+      payload: JSON.stringify(convertToRaw(editorState.getCurrentContent())) }
+    });
   }
-
-  // const onBoldClick = () => setEditorState(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
 
   return (
     <div className="editorTextarea" onClick={focusEditor}>
-      {/* <button onClick={onBoldClick}>Bold</button> */}
       <Editor
         ref={editor}
         editorState={editorState}
-       // onChange={setEditorState}
         onChange={handleOnChange}
         handleKeyCommand={handleKeyCommand}
         placeholder={'Type something...'}
