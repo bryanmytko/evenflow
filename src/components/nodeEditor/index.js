@@ -1,5 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Editor, EditorState, RichUtils, convertFromRaw, convertToRaw } from 'draft-js';
+import {
+  Editor,
+  EditorState,
+  RichUtils,
+  ContentState,
+  convertFromRaw,
+  convertToRaw
+} from 'draft-js';
 import 'draft-js/dist/Draft.css';
 
 import './style.css';
@@ -8,12 +15,23 @@ const NodeEditor = (props) => {
   const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
   useEffect(() => {
-    /* @TODO need a check for old data that was just a string */
+    if(props.state.hidden) return setEditorState(EditorState.createEmpty());
+
     if(props.state.formData.payload){
       const content = props.state.formData.payload;
-      props.state.hidden ?
-      setEditorState(EditorState.createEmpty()) :
-      setEditorState(EditorState.createWithContent(convertFromRaw(JSON.parse(content))));
+      try {
+        const parsedContent = JSON.parse(content);
+        setEditorState(
+          EditorState
+            .createWithContent(convertFromRaw(parsedContent))
+        );
+      } catch(err) {
+        /* This is gross but we need to support legacy content which was a raw string */
+        setEditorState(
+          EditorState
+          .createWithContent(ContentState.createFromText(content))
+        );
+      }
     }
   }, [props.state.hidden])
 
@@ -37,8 +55,13 @@ const NodeEditor = (props) => {
   const handleOnChange = (editorState) => {
     setEditorState(editorState);
 
-    props.dispatch({ type: 'VALUE_CHANGE', formData: {
-      payload: JSON.stringify(convertToRaw(editorState.getCurrentContent())) }
+    props.dispatch({
+      type: 'VALUE_CHANGE',
+      formData: {
+        payload: JSON.stringify(
+          convertToRaw(editorState.getCurrentContent())
+        )
+      }
     });
   }
 
