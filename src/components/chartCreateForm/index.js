@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Error } from '../';
+import { Error, NodeEditor } from '../';
 
 import './style.css';
 
@@ -30,9 +30,7 @@ const ChartCreateForm = (props) => {
         <button className="btn" onClick={props.action}>Save Node</button>
       </div>
       <div className={ props.state.terminating ? '' : 'hide' }>
-        <textarea value={props.state.formData.payload} onChange={
-          e => props.dispatch({ type: 'VALUE_CHANGE', formData: { payload: e.target.value }})}>
-        </textarea>
+        <NodeEditor dispatch={props.dispatch} state={props.state} />
         <button className="btn" onClick={props.action}>Save Node</button>
       </div>
     </div>
