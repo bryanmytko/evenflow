@@ -103,7 +103,7 @@ const ChartEdit = () => {
           onClick={e => toggleEditModal(e, child)}>edit</button>
         <button className="btn btn-new material-icons"
           onClick={e => deleteNode(child)}>delete</button>
-        <Expandable content={child.payload} />
+        {/* <Expandable content={child.payload} /> */}
       </span>
       <ul>
         {(child.children || [])
