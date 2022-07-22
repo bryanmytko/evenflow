@@ -73,6 +73,7 @@ const NodeEditor = (props) => {
         onChange={handleOnChange}
         handleKeyCommand={handleKeyCommand}
         value={props.state.formData.payload}
+        spellCheck={true}
       />
     </div>
   );
